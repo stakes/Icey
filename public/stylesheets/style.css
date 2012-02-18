@@ -1,8 +1,13 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+img.gravatar {
+    border: 2px solid #ccc;
+    width: 36px;
+    height: 36px;
+    float: left;
 }
 
-a {
-  color: #00B7FF;
+h3.gravatar {
+    margin-left: 8px;
+    margin-top: 5px;
+    display: inline-block;
 }

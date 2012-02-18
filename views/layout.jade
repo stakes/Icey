@@ -3,6 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://www.google.com/jsapi')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     script(src='/javascripts/bootstrap.min.js')
@@ -20,12 +21,34 @@ html
             <input name="username" id="username" type="text" class="span6" placeholder="Your GitHub username"></input>
             <label for="apikey">GitHub API key</label>
             <input name="apikey" id="apikey" type="text" class="span6" placeholder="Your GitHub API key"></input>
+            </form>
          </div>
          <div class="modal-footer">
-           <a href="#" class="btn btn-primary" id="start-btn">Git 'er done</a>
+           <a href="#" class="btn btn-primary" id="start-btn">Git er done</a>
          </div>
        </div>
-      
+       
+     script(type='text/html', id='projectselect').
+        <div class="modal" id="project-modal">
+          <div class="modal-header">
+            <img class="gravatar" src="http://www.gravatar.com/avatar/{{infoobj.gravatar_id}}" />
+            <h3 class="gravatar">Hey, {{infoobj.name}}</h3>
+            <div class="clearfix"></div>
+          </div>
+          <div class="modal-body">
+            <form>
+             <label for="username">Select a project</label>
+             <select id="project-select">
+              {{#repos}}
+              <option>{{name}}</option>
+              {{/repos}}
+             </select>
+          </div>
+          <div class="modal-footer">
+             <a href="#" class="btn btn-primary" id="go-btn">Fuck shit up</a>
+           </div>
+        </div>
+    
     script
       // when the dom's ready
         $(document).ready(function () {
@@ -33,7 +56,7 @@ html
           var startmodal;
           startmodal = ich.modal();
           $('body').append(startmodal);
-          $('#start-modal').modal('show');
+          $('#start-modal').modal('show', {backdrop: false});
           $('#start-btn').click(function(e) {
             e.preventDefault();
             $.post('/authenticate', {
@@ -41,33 +64,20 @@ html
               apikey: $('#apikey').val()
             },
             function(r) {
-              console.log(r);
-            })
+              if (r) {
+                $('#start-modal').modal('hide');
+                var selectormodal;
+                selectormodal = ich.projectselect(r);
+                $('body').append(selectormodal);
+                $('#project-modal').modal('show');
+              }
+            });
           });
           
-          
-        
-          // add a simple click handler for the "add user" button.
-          // $('#add_user').click(function () {
-            // var user_data, user;
-
-            // build a simple user object, in a real app this 
-            // would probably come from a server somewhere. 
-            // Otherwise hardcoding here is just silly.
-            //- user_data = {
-            //-              name: "Henrik Joreteg",
-            //-              twitter: "HenrikJoreteg",
-            //-              employer: "&yet",
-            //-              job_title: "JS nerd"
-            //-            };
-           
-            // Here's all the magic.
-            //- user = ich.user(user_data);
-            // append it to the list, tada! 
-            //Now go do something more useful with this.
-            //- $('#user_list').append(user);
-          //- });
-
+          $('#go-btn').live('click', function(e) {
+            e.preventDefault();
+            $('#project-modal').modal('hide');
+          });
         });
       
           

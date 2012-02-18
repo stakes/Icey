@@ -5,8 +5,12 @@ exports.index = function(req, res){
 };
 
 exports.authenticate = function(req, res) {
-    github.authenticate(req.body.username, req.body.apikey);
-    github.getUserApi().show(req.body.username, function(err, info) {
-        res.send(info);
+    gh = github
+    gh.authenticate(req.body.username, req.body.apikey);
+    gh.getUserApi().show(req.body.username, function(err, info) {
+        gh.getRepoApi().getUserRepos(req.body.username, function(err, resp) {
+          var responseObj = {infoobj: info, repos: resp};
+          res.send(responseObj);
+        });
     });
 };
