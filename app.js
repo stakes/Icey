@@ -36,6 +36,7 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 app.post('/authenticate', routes.authenticate);
+app.get('/project/:user/:id/:key', routes.getProject);
 
 var port = process.env.PORT || 3000;
 app.listen(port);
