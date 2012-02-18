@@ -10,6 +10,8 @@ var mongoose = global.mongoose = require('mongoose').Mongoose;
 
 var app = module.exports = express.createServer();
 
+var github = require('./lib/github');
+
 // Configuration
 
 
@@ -33,6 +35,8 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.post('/authenticate', routes.authenticate);
 
-app.listen(3000);
+var port = process.env.PORT || 3000;
+app.listen(port);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

@@ -6,5 +6,69 @@ html
     script(src='https://www.google.com/jsapi')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
     script(src='/javascripts/bootstrap.min.js')
+    script(src='/javascripts/icanhaz.js')
     script(src='/javascripts/application.js')
+    
+    script(type='text/html', id='modal').
+       <div class="modal" id="start-modal">
+         <div class="modal-header">
+           <h3>Your Github account</h3>
+         </div>
+         <div class="modal-body">
+           <form>
+            <label for="username">GitHub username</label>
+            <input name="username" id="username" type="text" class="span6" placeholder="Your GitHub username"></input>
+            <label for="apikey">GitHub API key</label>
+            <input name="apikey" id="apikey" type="text" class="span6" placeholder="Your GitHub API key"></input>
+         </div>
+         <div class="modal-footer">
+           <a href="#" class="btn btn-primary" id="start-btn">Git 'er done</a>
+         </div>
+       </div>
+      
+    script
+      // when the dom's ready
+        $(document).ready(function () {
+          
+          var startmodal;
+          startmodal = ich.modal();
+          $('body').append(startmodal);
+          $('#start-modal').modal('show');
+          $('#start-btn').click(function(e) {
+            e.preventDefault();
+            $.post('/authenticate', {
+              username: $('#username').val(),
+              apikey: $('#apikey').val()
+            },
+            function(r) {
+              console.log(r);
+            })
+          });
+          
+          
+        
+          // add a simple click handler for the "add user" button.
+          // $('#add_user').click(function () {
+            // var user_data, user;
+
+            // build a simple user object, in a real app this 
+            // would probably come from a server somewhere. 
+            // Otherwise hardcoding here is just silly.
+            //- user_data = {
+            //-              name: "Henrik Joreteg",
+            //-              twitter: "HenrikJoreteg",
+            //-              employer: "&yet",
+            //-              job_title: "JS nerd"
+            //-            };
+           
+            // Here's all the magic.
+            //- user = ich.user(user_data);
+            // append it to the list, tada! 
+            //Now go do something more useful with this.
+            //- $('#user_list').append(user);
+          //- });
+
+        });
+      
+          
   body!= body 
