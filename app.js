@@ -6,8 +6,6 @@
 var express = require('express')
   , routes = require('./routes');
   
-var mongoose = global.mongoose = require('mongoose').Mongoose;
-
 var app = module.exports = express.createServer();
 
 var github = require('./lib/github');
