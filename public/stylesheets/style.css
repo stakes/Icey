@@ -11,3 +11,24 @@ h3.gravatar {
     margin-top: 5px;
     display: inline-block;
 }
+
+#board {
+    margin-top: 60px;
+}
+
+.issue-item {
+    background-color: #fff;
+}
+span.time {
+    font-size: 11px;
+}
+.issue-item hr {
+    margin: 3px 0 6px;
+}
+.issue-item h2 {
+    line-height: 18px;
+    font-size: 14px;
+}
+.issue-item p {
+    margin-top: 4px;
+}

@@ -1,1 +1,45 @@
-h1 #{content}
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
+      a.brand= pname
+      ul.nav
+        li.divider-vertical
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            | Switch projects
+            b.caret
+          ul.dropdown-menu
+            li.nav-header Repos
+            - each item in repos
+              li
+                a(href="/project/#{user}/#{item.name}/#{key}")= item.name
+
+#board
+
+  .container-fluid
+    .row-fluid
+
+      .span3
+        h3 Icebox
+        .well
+          - each item in content
+            .well.issue-item
+              span.time= item.updated_at.substr(0, 10)
+              h2= item.title
+              hr
+              p= item.body
+              a(href="#{item.html_url}", target="_blank") View on GitHub
+  
+      .span3
+        h3 Backlog
+        .well
+  
+  
+      .span3
+        h3 Current
+        .well
+  
+  
+      .span3
+        h3 Complete
+        .well

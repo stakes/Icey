@@ -19,7 +19,10 @@ exports.getProject = function(req, res) {
   var gh = github
   gh.authenticate(req.params.user, req.params.key);
   gh.getIssueApi().getList(req.params.user, req.params.id, 'open', function(err, info) {
-    console.log(info)
-    res.render('project', { title: 'Icey | '+req.params.id, content: info });
+    gh.getRepoApi().getUserRepos(req.params.user, function(err, resp) {
+      var responseObj = { title: 'Icey | '+req.params.id, user: req.params.user, key: req.params.key, pname: req.params.id, content: info, repos: resp};
+      console.log(responseObj)
+      res.render('project', responseObj);
+    });
   });
 };
