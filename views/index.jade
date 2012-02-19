@@ -12,7 +12,7 @@ script(type='text/html', id='modal').
         </form>
      </div>
      <div class="modal-footer">
-       <a href="#" class="btn btn-primary" id="start-btn">Git er done</a>
+       <a href="#" class="btn btn-primary" id="start-btn">Go git it</a>
      </div>
    </div>
    
@@ -35,13 +35,15 @@ script(type='text/html', id='modal').
          </select>
       </div>
       <div class="modal-footer">
-         <a href="#" class="btn btn-primary" id="go-btn">Take control</a>
+         <a href="#" class="btn btn-primary" id="go-btn">Git er done</a>
        </div>
     </div>
 
 script
   // when the dom's ready
     $(document).ready(function () {
+      
+      $.backstretch('/images/bg.jpeg')
       
       var startmodal;
       startmodal = ich.modal();
@@ -70,4 +72,6 @@ script
         window.location.href = '/project/'+$('#username').val()+'/'+$('#project-select').find('option:selected').text()+'/'+$('#key').val();
         $('#project-modal').modal('hide');
       });
+      
+      
     });
