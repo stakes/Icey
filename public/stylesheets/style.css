@@ -35,3 +35,7 @@ span.time {
 .issue-item .label {
     float: right;
 }
+.navbar .nav > li > a.inactive:hover {
+    color: #999;
+    cursor: default;
+}

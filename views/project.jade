@@ -13,6 +13,13 @@
             - each item in repos
               li
                 a(href="/project/#{user}/#{item.name}/#{key}")= item.name
+        li.divider-vertical
+      ul.nav.pull-right
+        li
+          a.inactive Logged in as <strong>#{user}</strong>
+        li.divider-vertical
+        li
+          a(href="/") Log out
 
 #board
 
