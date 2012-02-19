@@ -16,7 +16,7 @@ exports.authenticate = function(req, res) {
 };
 
 exports.getProject = function(req, res) {
-  var gh = github
+  var gh = github;
   gh.authenticate(req.params.user, req.params.key);
   gh.getIssueApi().getList(req.params.user, req.params.id, 'closed', function(err, inf) {
     var closed = inf;
@@ -27,5 +27,21 @@ exports.getProject = function(req, res) {
         res.render('project', responseObj);
       });
     });
+  });
+};
+
+exports.updateIssue = function(req, res) {
+  var gh = github;
+  gh.authenticate(req.params.user, req.params.key);
+  gh.getIssueApi().addIssueLabel(req.params.user, req.params.repo, req.params.issue, req.params.label, function(err, info) {
+    res.send(info)
+  });
+};
+
+exports.closeIssue = function(req, res) {
+  var gh = github;
+  gh.authenticate(req.params.user, req.params.key);
+  gh.getIssueApi().closeIssue(req.params.user, req.params.repo, req.params.issue, function(err, info) {
+    res.send(info)
   });
 };

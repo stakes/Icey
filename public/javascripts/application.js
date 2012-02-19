@@ -7,10 +7,27 @@ $(document).ready(function() {
       tgt.appendTo($(this));
       applyVisualLabel(tgt, $(this).attr('id'));
       
+      if ($(this).attr('id') == 'completed') {
+        closeIssue(tgt)
+      } else {
+        applyGithubLabel(tgt, $(this).attr('id'));
+      }
     }
   });
   
 });
+
+var applyGithubLabel = function(tgt, id) {
+  $.get('/issue/update/'+window.ICEDOUT.user+'/'+window.ICEDOUT.repo+'/'+tgt.data('issue')+'/'+id+'/'+window.ICEDOUT.key, function(r) {
+    console.log(r)
+  });
+}
+
+var closeIssue = function(tgt) {
+  $.get('/issue/close/'+window.ICEDOUT.user+'/'+window.ICEDOUT.repo+'/'+tgt.data('issue')+'/'+window.ICEDOUT.key, function(r) {
+    console.log(r)
+  });
+}
 
 var applyVisualLabel = function(tgt, id) {
   tgt.find('.item-label').remove();

@@ -35,6 +35,8 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.post('/authenticate', routes.authenticate);
 app.get('/project/:user/:id/:key', routes.getProject);
+app.get('/issue/update/:user/:repo/:issue/:label/:key', routes.updateIssue);
+app.get('/issue/close/:user/:repo/:issue/:key', routes.closeIssue);
 
 var port = process.env.PORT || 3000;
 app.listen(port);

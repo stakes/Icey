@@ -1,3 +1,10 @@
+script
+  window.ICEDOUT = window.ICEDOUT || {};
+  window.ICEDOUT.user = '#{user}'
+  window.ICEDOUT.key = '#{key}'
+  window.ICEDOUT.repo = '#{pname}'
+  
+
 .navbar.navbar-fixed-top
   .navbar-inner
     .container-fluid
@@ -30,7 +37,7 @@
         h3 Icebox
         .well#icebox
           - each item in openissues
-            .well.issue-item
+            .well.issue-item(data-issue="#{item.number}")
               span.time= item.updated_at.substr(0, 10)
               h2= item.title
               hr
