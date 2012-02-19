@@ -21,7 +21,7 @@
 
       .span3
         h3 Icebox
-        .well
+        .well#icebox
           - each item in content
             .well.issue-item
               span.time= item.updated_at.substr(0, 10)
@@ -32,14 +32,14 @@
   
       .span3
         h3 Backlog
-        .well
+        .well#backlog
   
   
       .span3
         h3 Current
-        .well
+        .well#current
   
   
       .span3
         h3 Complete
-        .well
+        .well#completed
