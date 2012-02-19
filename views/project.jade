@@ -22,13 +22,14 @@
       .span3
         h3 Icebox
         .well#icebox
-          - each item in content
+          - each item in openissues
             .well.issue-item
               span.time= item.updated_at.substr(0, 10)
               h2= item.title
               hr
               p= item.body
               a(href="#{item.html_url}", target="_blank") View on GitHub
+              span.label.item-label ICEBOX 
   
       .span3
         h3 Backlog
@@ -43,3 +44,11 @@
       .span3
         h3 Complete
         .well#completed
+          - each item in closedissues
+            .well.issue-item
+              span.time= item.updated_at.substr(0, 10)
+              h2= item.title
+              hr
+              p= item.body
+              a(href="#{item.html_url}", target="_blank") View on GitHub  
+              span.label.item-label.label-important CLOSED      

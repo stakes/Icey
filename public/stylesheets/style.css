@@ -32,3 +32,6 @@ span.time {
 .issue-item p {
     margin-top: 4px;
 }
+.issue-item .label {
+    float: right;
+}
