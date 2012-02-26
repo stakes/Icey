@@ -38,6 +38,8 @@ app.get('/project/:user/:id/:key', routes.getProject);
 app.get('/issue/update/:user/:repo/:issue/:label/:key', routes.updateIssue);
 app.get('/issue/close/:user/:repo/:issue/:key', routes.closeIssue);
 
+// Server
+
 var port = process.env.PORT || 3000;
 app.listen(port);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

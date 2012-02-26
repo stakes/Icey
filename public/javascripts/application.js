@@ -18,13 +18,13 @@ $(document).ready(function() {
 });
 
 var applyGithubLabel = function(tgt, id) {
-  $.get('/issue/update/'+window.ICEDOUT.user+'/'+window.ICEDOUT.repo+'/'+tgt.data('issue')+'/'+id+'/'+window.ICEDOUT.key, function(r) {
+  $.get('/issue/update/'+window.ICEY.user+'/'+window.ICEY.repo+'/'+tgt.data('issue')+'/'+id+'/'+window.ICEY.key, function(r) {
     console.log(r)
   });
 }
 
 var closeIssue = function(tgt) {
-  $.get('/issue/close/'+window.ICEDOUT.user+'/'+window.ICEDOUT.repo+'/'+tgt.data('issue')+'/'+window.ICEDOUT.key, function(r) {
+  $.get('/issue/close/'+window.ICEY.user+'/'+window.ICEY.repo+'/'+tgt.data('issue')+'/'+window.ICEY.key, function(r) {
     console.log(r)
   });
 }

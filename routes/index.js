@@ -1,7 +1,7 @@
 var github = require('../lib/github');
 
 exports.index = function(req, res){
-  res.render('index', { title: 'IcedOut' });
+  res.render('index', { title: 'Icey' });
 };
 
 exports.authenticate = function(req, res) {
@@ -22,7 +22,7 @@ exports.getProject = function(req, res) {
     var closed = inf;
     gh.getIssueApi().getList(req.params.user, req.params.id, 'open', function(err, info) {
       gh.getRepoApi().getUserRepos(req.params.user, function(err, resp) {
-        var responseObj = { title: 'IcedOut | '+req.params.id, user: req.params.user, key: req.params.key, pname: req.params.id, openissues: info, closedissues: closed, repos: resp};
+        var responseObj = { title: 'Icey | '+req.params.id, user: req.params.user, key: req.params.key, pname: req.params.id, openissues: info, closedissues: closed, repos: resp};
         console.log(responseObj)
         res.render('project', responseObj);
       });
