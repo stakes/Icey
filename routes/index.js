@@ -1,3 +1,4 @@
+var https = require('https');
 var github = require('../lib/github');
 
 exports.index = function(req, res){
@@ -22,7 +23,30 @@ exports.authenticate = function(req, res) {
     });
 };
 
-exports.getProject = function(req, res) {
+exports.getProjects = function(req, res) {
+  console.log('getting projects');
+  var options = {
+    host: "api.github.com",
+  	path: '/user/repos?access_token=' + req.session.oauth,
+  	method: "GET"
+  };
+  var client = https.request(options, function(res) {
+    var body = [];
+    res.setEncoding('UTF8');
+    res.on('data', function(chunk) {
+      console.log(chunk);
+      body.push(chunk);
+    });
+    res.on('end', function() {
+      console.log("ENDED");
+      body.join('');
+      console.log(body);
+    });
+  });
+  client.end();
+};
+
+exports.getSingleProject = function(req, res) {
   var gh = github;
   gh.authenticate(req.params.user, req.params.key);
   gh.getIssueApi().getList(req.params.user, req.params.id, 'closed', function(err, inf) {
@@ -30,7 +54,6 @@ exports.getProject = function(req, res) {
     gh.getIssueApi().getList(req.params.user, req.params.id, 'open', function(err, info) {
       gh.getRepoApi().getUserRepos(req.params.user, function(err, resp) {
         var responseObj = { title: 'Icey | '+req.params.id, user: req.params.user, key: req.params.key, pname: req.params.id, openissues: info, closedissues: closed, repos: resp};
-        console.log(responseObj)
         res.render('project', responseObj);
       });
     });
