@@ -1,3 +1,4 @@
+
 script
   window.ICEY = window.ICEY || {};
   window.ICEY.user = '#{user}'
@@ -35,6 +36,7 @@ script
 
       .span3
         h3 Icebox
+        
         .well#icebox
           - each item in openissues
             .well.issue-item(data-issue="#{item.number}")

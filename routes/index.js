@@ -1,8 +1,15 @@
 var github = require('../lib/github');
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Icey' });
+  if (req.session && req.session.uid) {
+	    return res.redirect('/projects');
+	}
+	res.render('login', { title: 'Icey' });
 };
+
+exports.login = function(req, res){
+  res.render('login', { title: 'Icey | Log in with Github' });
+}
 
 exports.authenticate = function(req, res) {
     var gh = github
