@@ -19,8 +19,9 @@ everyauth.github
   .appId(conf.github_dev.appId)
   .appSecret(conf.github_dev.appSecret)
   .scope('user,repo')
-  .findOrCreateUser( function (sess, accessToken, accessTokenExtra, ghUser) {
-      sess.uid = ghUser.id
+  .findOrCreateUser( function (session, accessToken, accessTokenExtra, ghUser) {
+      session.uid = ghUser.id
+      session.oauth = accessToken
       return ghUser.id
   })
   .redirectPath('/');
@@ -64,7 +65,8 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.post('/authenticate', routes.authenticate);
-app.get('/project/:user/:id/:key', routes.getProject);
+app.get('/projects', routes.getProjects);
+app.get('/project/:user/:id/:key', routes.getSingleProject);
 app.get('/issue/update/:user/:repo/:issue/:label/:key', routes.updateIssue);
 app.get('/issue/close/:user/:repo/:issue/:key', routes.closeIssue);
 
