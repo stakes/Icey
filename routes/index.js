@@ -22,14 +22,13 @@ exports.getProjects = function(req, res) {
   	method: "GET"
   };
   var client = https.request(options, function(response) {
-    var body = [];
+    var body = '';
     response.setEncoding('UTF8');
     response.on('data', function(chunk) {
-      body.push(chunk);
+      body += chunk
     });
     response.on('end', function() {
-      body.join('');
-      body = JSON.parse(body);
+      body = JSON.parse(body)
       var responseObj = { title: 'Icey', repos: body};
       res.render('project', responseObj);
     });
