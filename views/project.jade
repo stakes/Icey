@@ -1,70 +1,103 @@
+script(type='text/html', id='projectselect').
+   <div class="modal" id="project-modal">
+     <div class="modal-header">
+       <img class="gravatar" src="http://www.gravatar.com/avatar/{{infoobj.gravatar_id}}" />
+       <h3 class="gravatar">Hey, {{infoobj.name}}</h3>
+       <div class="clearfix"></div>
+     </div>
+     <div class="modal-body">
+       <form>
+        <input type="hidden" id="username" name="username" value="{{infoobj.login}}" />
+        <input type="hidden" id="key" name="key" value="" />
+        <label for="username">Select a project</label>
+        <select id="project-select">
+         {{#repos}}
+         <option value="{{name}}">{{name}}</option>
+         {{/repos}}
+        </select>
+     </div>
+     <div class="modal-footer">
+        <a href="#" class="btn btn-primary" id="go-btn">Git er done</a>
+      </div>
+   </div>
 
 script
   window.ICEY = window.ICEY || {};
-  window.ICEY.user = '#{user}'
-  window.ICEY.key = '#{key}'
-  window.ICEY.repo = '#{pname}'
   
+- if (typeof pname !== 'undefined')
+  script
+    window.ICEY.repo = '#{pname}'
 
-.navbar.navbar-fixed-top
-  .navbar-inner
-    .container-fluid
-      a.brand= pname
-      ul.nav
-        li.divider-vertical
-        li.dropdown
-          a.dropdown-toggle(href='#', data-toggle='dropdown')
-            | Switch projects
-            b.caret
-          ul.dropdown-menu
-            li.nav-header Repos
-            - each item in repos
-              li
-                a(href="/project/#{user}/#{item.name}/#{key}")= item.name
-        li.divider-vertical
-      ul.nav.pull-right
-        li
-          a.inactive Logged in as <strong>#{user}</strong>
-        li.divider-vertical
-        li
-          a(href="/") Log out
+script
+  if (typeof(window.ICEY.repo)!=='undefined') {
+    alert('project has been selected')
+  } else {
+    alert('no project yet')
+  }
 
-#board
+= repos
+- each item in repos
+  = item
 
-  .container-fluid
-    .row-fluid
-
-      .span3
-        h3 Icebox
-        
-        .well#icebox
-          - each item in openissues
-            .well.issue-item(data-issue="#{item.number}")
-              span.time= item.updated_at.substr(0, 10)
-              h2= item.title
-              hr
-              p= item.body
-              a(href="#{item.html_url}", target="_blank") View on GitHub
-              span.label.item-label ICEBOX 
-  
-      .span3
-        h3 Backlog
-        .well#backlog
-  
-  
-      .span3
-        h3 Current
-        .well#current
-  
-  
-      .span3
-        h3 Complete
-        .well#completed
-          - each item in closedissues
-            .well.issue-item
-              span.time= item.updated_at.substr(0, 10)
-              h2= item.title
-              hr
-              p= item.body
-              a(href="#{item.html_url}", target="_blank") View on GitHub  
-              span.label.item-label.label-important CLOSED      
+//- .navbar.navbar-fixed-top
+//-   .navbar-inner
+//-     .container-fluid
+//-       a.brand Icey
+//-       ul.nav
+//-         li.divider-vertical
+//-         li.dropdown
+//-           a.dropdown-toggle(href='#', data-toggle='dropdown')
+//-             | Switch projects
+//-             b.caret
+//-           ul.dropdown-menu
+//-             li.nav-header Repos
+//-             - each item in repos
+//-               li
+//-                 a(href="/project/#{user}/#{item.name}/#{key}")= item.name
+//-         li.divider-vertical
+//-       ul.nav.pull-right
+//-         li
+//-           a.inactive Logged in as <strong>#{user}</strong>
+//-         li.divider-vertical
+//-         li
+//-           a(href="/") Log out
+//- 
+//- #board
+//- 
+//-   .container-fluid
+//-     .row-fluid
+//- 
+//-       .span3
+//-         h3 Icebox
+//-         
+//-         .well#icebox
+//-           - each item in openissues
+//-             .well.issue-item(data-issue="#{item.number}")
+//-               span.time= item.updated_at.substr(0, 10)
+//-               h2= item.title
+//-               hr
+//-               p= item.body
+//-               a(href="#{item.html_url}", target="_blank") View on GitHub
+//-               span.label.item-label ICEBOX 
+//-   
+//-       .span3
+//-         h3 Backlog
+//-         .well#backlog
+//-   
+//-   
+//-       .span3
+//-         h3 Current
+//-         .well#current
+//-   
+//-   
+//-       .span3
+//-         h3 Complete
+//-         .well#completed
+//-           - each item in closedissues
+//-             .well.issue-item
+//-               span.time= item.updated_at.substr(0, 10)
+//-               h2= item.title
+//-               hr
+//-               p= item.body
+//-               a(href="#{item.html_url}", target="_blank") View on GitHub  
+//-               span.label.item-label.label-important CLOSED      

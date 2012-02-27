@@ -12,6 +12,36 @@ exports.login = function(req, res){
   res.render('login', { title: 'Icey | Log in with Github' });
 }
 
+exports.getProjects = function(req, res) {
+  var options = {
+    host: "api.github.com",
+  	path: '/user/repos?access_token=' + req.session.oauth,
+  	method: "GET"
+  };
+  console.log('making request with')
+  console.log(options)
+  var client = https.request(options, function(response) {
+    var body = [];
+    response.setEncoding('UTF8');
+    response.on('data', function(chunk) {
+      body.push(chunk);
+    });
+    response.on('end', function() {
+      body.join('');
+      body = JSON.parse(body);
+      console.log(body)
+      var responseObj = { title: 'Icey', repos: body};
+      res.render('project', responseObj);
+    });
+    response.on('error', function(error) {
+      console.log('Problem with request: ' + error.message);
+    })
+  });
+  client.end();
+};
+
+
+
 exports.authenticate = function(req, res) {
     var gh = github
     gh.authenticate(req.body.username, req.body.apikey);
@@ -21,29 +51,6 @@ exports.authenticate = function(req, res) {
           res.send(responseObj);
         });
     });
-};
-
-exports.getProjects = function(req, res) {
-  console.log('getting projects');
-  var options = {
-    host: "api.github.com",
-  	path: '/user/repos?access_token=' + req.session.oauth,
-  	method: "GET"
-  };
-  var client = https.request(options, function(res) {
-    var body = [];
-    res.setEncoding('UTF8');
-    res.on('data', function(chunk) {
-      console.log(chunk);
-      body.push(chunk);
-    });
-    res.on('end', function() {
-      console.log("ENDED");
-      body.join('');
-      console.log(body);
-    });
-  });
-  client.end();
 };
 
 exports.getSingleProject = function(req, res) {
