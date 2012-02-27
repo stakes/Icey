@@ -30,38 +30,41 @@ script
 
 script
   if (typeof(window.ICEY.repo)!=='undefined') {
-    alert('project has been selected')
+    console.log('project has been selected')
   } else {
-    alert('no project yet')
+    console.log('no project yet')
   }
 
-= repos
-- each item in repos
-  = item
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
+      a.brand Icey
+      ul.nav
+        li.divider-vertical
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            | Switch projects
+            b.caret
+          ul.dropdown-menu
+            li.nav-header Repos
+            - each item in repos
+              li
+                a(href="/project/#{item.name}/")= item.name
+        li.divider-vertical
+      ul.nav.pull-right
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            span Logged in as <strong>#{user.github.name}</strong>
+            b.caret
+          ul.dropdown-menu
+            li.nav-header Organizations
+            - each item in repos
+              li
+                a(href="/project/#{item.name}/")= item.name
+        li.divider-vertical
+        li
+          a(href="/logout") Log out
 
-//- .navbar.navbar-fixed-top
-//-   .navbar-inner
-//-     .container-fluid
-//-       a.brand Icey
-//-       ul.nav
-//-         li.divider-vertical
-//-         li.dropdown
-//-           a.dropdown-toggle(href='#', data-toggle='dropdown')
-//-             | Switch projects
-//-             b.caret
-//-           ul.dropdown-menu
-//-             li.nav-header Repos
-//-             - each item in repos
-//-               li
-//-                 a(href="/project/#{user}/#{item.name}/#{key}")= item.name
-//-         li.divider-vertical
-//-       ul.nav.pull-right
-//-         li
-//-           a.inactive Logged in as <strong>#{user}</strong>
-//-         li.divider-vertical
-//-         li
-//-           a(href="/") Log out
-//- 
 //- #board
 //- 
 //-   .container-fluid
