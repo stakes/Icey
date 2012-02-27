@@ -33,6 +33,7 @@ UserSchema.plugin(mongooseauth, {
         myHostname: config.github.hostUri
       , appId: config.github.appId
       , appSecret: config.github.appSecret
+      , scope: 'user,repo'
       , redirectPath: '/'
     }
   }
@@ -47,7 +48,6 @@ User = mongoose.model('User');
 
 // Mongoose-auth
 mongooseauth.helpExpress(app);
-
 
 
 
