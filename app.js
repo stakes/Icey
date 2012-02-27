@@ -3,10 +3,15 @@
  * Module dependencies.
  */
 
+var env = process.env.NODE_ENV || 'development';
+var port = process.env.PORT || 3000;
+
+
 var express = require('express')
   , routes = require('./routes')
   , everyauth = require('everyauth')
-  , conf = require('./conf')
+  , config_file = require('yaml-config')
+  , config = config_file.readConfig('config/config.yaml', env)
   , github = require('./lib/github');
 var app = module.exports = express.createServer();
 
@@ -16,8 +21,8 @@ var app = module.exports = express.createServer();
 everyauth.helpExpress(app);
 everyauth.debug = true;
 everyauth.github
-  .appId(conf.github_dev.appId)
-  .appSecret(conf.github_dev.appSecret)
+  .appId(config.github.appId)
+  .appSecret(config.github.appSecret)
   .scope('user,repo')
   .findOrCreateUser( function (session, accessToken, accessTokenExtra, ghUser) {
       session.uid = ghUser.id
@@ -72,6 +77,5 @@ app.get('/issue/close/:user/:repo/:issue/:key', routes.closeIssue);
 
 // Server
 
-var port = process.env.PORT || 3000;
 app.listen(port);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
