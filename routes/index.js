@@ -2,7 +2,7 @@ var https = require('https');
 var github = require('../lib/github');
 
 exports.index = function(req, res){
-  if (req.session && req.session.uid) {
+  if (req.loggedIn) {
 	    return res.redirect('/projects');
 	}
 	res.render('login', { title: 'Icey' });
@@ -13,13 +13,14 @@ exports.login = function(req, res){
 }
 
 exports.getProjects = function(req, res) {
+  if (typeof(req.session.auth)=='undefined') {
+    return res.redirect('/');
+  }
   var options = {
     host: "api.github.com",
-  	path: '/user/repos?access_token=' + req.session.oauth,
+  	path: '/user/repos?access_token=' + req.session.auth.github.accessToken,
   	method: "GET"
   };
-  console.log('making request with')
-  console.log(options)
   var client = https.request(options, function(response) {
     var body = [];
     response.setEncoding('UTF8');
@@ -29,7 +30,6 @@ exports.getProjects = function(req, res) {
     response.on('end', function() {
       body.join('');
       body = JSON.parse(body);
-      console.log(body)
       var responseObj = { title: 'Icey', repos: body};
       res.render('project', responseObj);
     });
@@ -39,8 +39,6 @@ exports.getProjects = function(req, res) {
   });
   client.end();
 };
-
-
 
 exports.authenticate = function(req, res) {
     var gh = github
