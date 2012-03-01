@@ -54,7 +54,7 @@ script
       ul.nav.pull-right
         li.dropdown
           a.dropdown-toggle(href='#', data-toggle='dropdown')
-            span Logged in as <strong>#{user.github.name}</strong>
+            span <strong>#{context}</strong>&nbsp;
             b.caret
           ul.dropdown-menu
             li.nav-header Use as
@@ -67,42 +67,44 @@ script
         li
           a(href="/logout") Log out
 
-//- #board
-//- 
-//-   .container-fluid
-//-     .row-fluid
-//- 
-//-       .span3
-//-         h3 Icebox
-//-         
-//-         .well#icebox
-//-           - each item in openissues
-//-             .well.issue-item(data-issue="#{item.number}")
-//-               span.time= item.updated_at.substr(0, 10)
-//-               h2= item.title
-//-               hr
-//-               p= item.body
-//-               a(href="#{item.html_url}", target="_blank") View on GitHub
-//-               span.label.item-label ICEBOX 
-//-   
-//-       .span3
-//-         h3 Backlog
-//-         .well#backlog
-//-   
-//-   
-//-       .span3
-//-         h3 Current
-//-         .well#current
-//-   
-//-   
-//-       .span3
-//-         h3 Complete
-//-         .well#completed
-//-           - each item in closedissues
-//-             .well.issue-item
-//-               span.time= item.updated_at.substr(0, 10)
-//-               h2= item.title
-//-               hr
-//-               p= item.body
-//-               a(href="#{item.html_url}", target="_blank") View on GitHub  
-//-               span.label.item-label.label-important CLOSED      
+- if (typeof openissues !='undefined')
+
+  #board
+
+    .container-fluid
+      .row-fluid
+
+        .span3
+          h3 Icebox
+        
+          .well#icebox
+            - each item in openissues
+              .well.issue-item(data-issue="#{item.number}")
+                span.time= item.updated_at.substr(0, 10)
+                h2= item.title
+                hr
+                p= item.body
+                a(href="#{item.html_url}", target="_blank") View on GitHub
+                span.label.item-label ICEBOX 
+  
+        .span3
+          h3 Backlog
+          .well#backlog
+  
+  
+        .span3
+          h3 Current
+          .well#current
+  
+  
+        .span3
+          h3 Complete
+          .well#completed
+            - each item in closedissues
+              .well.issue-item
+                span.time= item.updated_at.substr(0, 10)
+                h2= item.title
+                hr
+                p= item.body
+                a(href="#{item.html_url}", target="_blank") View on GitHub  
+                span.label.item-label.label-important CLOSED      

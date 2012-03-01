@@ -17,7 +17,7 @@ exports.login = function(req, res){
   res.render('login', { title: 'Icey | Log in with Github' });
 }
 
-exports.showProjectsForAccount = function(req, res, login) {
+exports.showProjectsForAccount = function(req, res) {
   if (typeof(req.session.auth)=='undefined') {
     return res.redirect('/');
   };
@@ -39,20 +39,34 @@ exports.showProjectsForAccount = function(req, res, login) {
   });
 };
 
-
-
-exports.authenticate = function(req, res) {
-    var gh = github
-    gh.authenticate(req.body.username, req.body.apikey);
-    gh.getUserApi().show(req.body.username, function(err, info) {
-        gh.getRepoApi().getUserRepos(req.body.username, function(err, resp) {
-          var responseObj = {infoobj: info, repos: resp};
-          res.send(responseObj);
-        });
-    });
-};
-
 exports.getSingleProject = function(req, res) {
+  if (typeof(req.session.auth)=='undefined') {
+    return res.redirect('/');
+  };
+  var acct = req.user.github.login;
+  if (typeof(req.params.account)!='undefined') {
+    acct = req.params.account
+  };
+  icey.getProjects(req, res, acct, function(projects) {
+    // now get organizations for that user
+    icey.getOrganizations(req, res, function(organizations) {
+      // and now the get the issues for the selected project
+      icey.getAllIssues(req, res, acct, function(open, closed) {
+        var responseObj = { 
+            title: 'Icey'
+          , repos: projects
+          , orgs: organizations
+          , context: acct
+          , openissues: open
+          , closedissues: closed
+        };
+        res.render('project', responseObj);
+      });
+    });
+  });
+}
+
+exports.getSingleProjectDeprecated = function(req, res) {
   var gh = github;
   gh.authenticate(req.params.user, req.params.key);
   gh.getIssueApi().getList(req.params.user, req.params.id, 'closed', function(err, inf) {
@@ -64,6 +78,21 @@ exports.getSingleProject = function(req, res) {
       });
     });
   });
+};
+
+
+
+
+
+exports.authenticate = function(req, res) {
+    var gh = github
+    gh.authenticate(req.body.username, req.body.apikey);
+    gh.getUserApi().show(req.body.username, function(err, info) {
+        gh.getRepoApi().getUserRepos(req.body.username, function(err, resp) {
+          var responseObj = {infoobj: info, repos: resp};
+          res.send(responseObj);
+        });
+    });
 };
 
 exports.updateIssue = function(req, res) {
