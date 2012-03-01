@@ -1,5 +1,7 @@
 var https = require('https');
 var github = require('../lib/github');
+var icey = require('../lib/icey')
+var _ = require('underscore');
 
 exports.index = function(req, res){
   if (req.loggedIn) {
@@ -15,7 +17,6 @@ exports.login = function(req, res){
   res.render('login', { title: 'Icey | Log in with Github' });
 }
 
-// first get projects
 exports.showProjectsForAccount = function(req, res, login) {
   if (typeof(req.session.auth)=='undefined') {
     return res.redirect('/');
@@ -24,67 +25,21 @@ exports.showProjectsForAccount = function(req, res, login) {
   if (typeof(req.params.account)!='undefined') {
     acct = req.params.account
   };
-  getProjects(req, res, acct);
+  icey.getProjects(req, res, acct, function(projects) {
+    // now get organizations and pass render response as a callback
+    icey.getOrganizations(req, res, function(organizations) {
+      var responseObj = { 
+          title: 'Icey'
+        , repos: projects
+        , orgs: organizations
+        , context: acct
+      };
+      res.render('project', responseObj);
+    });
+  });
 };
 
-// get projects for a user/organization
-var getProjects = function(req, res, login) {
-  var options = {
-    host: "api.github.com",
-  	method: "GET"
-  };
-  // i'm either using it as myself...
-  if (login!=req.user.github.login) {
-    options.path = '/orgs/'+login+'/repos?access_token=' + req.session.auth.github.accessToken;
-  // or in the context of an organization.
-  } else {
-    options.path = '/user/repos?access_token=' + req.session.auth.github.accessToken;
-  };
-  var client = https.request(options, function(response) {
-    var body = '';
-    response.setEncoding('UTF8');
-    response.on('data', function(chunk) {
-      body += chunk
-    });
-    response.on('end', function() {
-      body = JSON.parse(body)
-      var responseObj = { title: 'Icey', repos: body};
-      // now get organizations and pass render response as a callback
-      getOrganizations(req, res, function(content) {
-        responseObj.orgs = content;
-        responseObj.context = login;
-        res.render('project', responseObj);
-      });
-    });
-    response.on('error', function(error) {
-      console.log('Problem with request: ' + error.message);
-    });
-  });
-  client.end();
-};
-// get organizations
-var getOrganizations = function(req, res, callback) {
-  var options = {
-    host: "api.github.com",
-  	path: '/user/orgs?access_token=' + req.session.auth.github.accessToken,
-  	method: "GET"
-  };
-  var client = https.request(options, function(response) {
-    var body = '';
-    response.setEncoding('UTF8');
-    response.on('data', function(chunk) {
-      body += chunk
-    });
-    response.on('end', function() {
-      body = JSON.parse(body);
-      callback(body);
-    });
-    response.on('error', function(error) {
-      console.log('Problem with request: ' + error.message);
-    })
-  });
-  client.end();
-}
+
 
 exports.authenticate = function(req, res) {
     var gh = github
