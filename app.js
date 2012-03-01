@@ -105,10 +105,12 @@ app.configure('production', function(){
 
 // Routes
 
+
 app.get('/', routes.index);
 app.get('/login', routes.login);
+app.get('/projects', routes.showProjectsForAccount);
+app.get('/orgs/:account', routes.showProjectsForAccount);
 app.post('/authenticate', routes.authenticate);
-app.get('/projects', routes.getProjects);
 app.get('/project/:user/:id/:key', routes.getSingleProject);
 app.get('/issue/update/:user/:repo/:issue/:label/:key', routes.updateIssue);
 app.get('/issue/close/:user/:repo/:issue/:key', routes.closeIssue);

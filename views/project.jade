@@ -38,7 +38,7 @@ script
 .navbar.navbar-fixed-top
   .navbar-inner
     .container-fluid
-      a.brand Icey
+      a.brand= context
       ul.nav
         li.divider-vertical
         li.dropdown
@@ -57,10 +57,12 @@ script
             span Logged in as <strong>#{user.github.name}</strong>
             b.caret
           ul.dropdown-menu
-            li.nav-header Organizations
-            - each item in repos
+            li.nav-header Use as
+            li
+              a(href="/projects")= user.github.login  
+            - each item in orgs
               li
-                a(href="/project/#{item.name}/")= item.name
+                a(href="/orgs/#{item.login}/")= item.login
         li.divider-vertical
         li
           a(href="/logout") Log out
