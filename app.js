@@ -9,6 +9,7 @@ var express = require('express')
   , config = config_file.readConfig('config/config.yaml', env)
   , mongoose = require('mongoose')
   , mongooseauth = require('mongoose-auth')
+  , _ = require('underscore')
   , github = require('./lib/github');
 var app = module.exports = express.createServer();
 var Schema = mongoose.Schema;
@@ -109,9 +110,9 @@ app.configure('production', function(){
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.get('/projects', routes.showProjectsForAccount);
-app.get('/orgs/:account', routes.showProjectsForAccount);
+app.get('/context/:account', routes.showProjectsForAccount);
+app.get('/context/:account/project/:project', routes.getSingleProject);
 app.post('/authenticate', routes.authenticate);
-app.get('/project/:user/:id/:key', routes.getSingleProject);
 app.get('/issue/update/:user/:repo/:issue/:label/:key', routes.updateIssue);
 app.get('/issue/close/:user/:repo/:issue/:key', routes.closeIssue);
 
