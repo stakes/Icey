@@ -36,6 +36,7 @@ UserSchema.plugin(mongooseauth, {
       , appSecret: config.github.appSecret
       , scope: 'user,repo'
       , redirectPath: '/'
+      , moduleTimeout: 999999
     }
   }
 })
@@ -49,31 +50,6 @@ User = mongoose.model('User');
 
 // Mongoose-auth
 mongooseauth.helpExpress(app);
-
-
-
-// Everyauth
-// everyauth.helpExpress(app);
-// everyauth.debug = true;
-// everyauth.github
-//   .appId(config.github.appId)
-//   .appSecret(config.github.appSecret)
-//   .scope('user,repo')
-//   .findOrCreateUser( function (session, accessToken, accessTokenExtra, ghUser) {
-//       session.uid = ghUser.id
-//       session.oauth = accessToken
-//       return ghUser.id
-//   })
-//   .redirectPath('/');
-//   
-// everyauth.everymodule.handleLogout(function(req, res) {
-//   req.logout();
-//   req.session.uid = null;
-//   res.writeHead(303, { 'Location': this.logoutRedirectPath() });
-//   res.end();
-// });
-// everyauth.everymodule.logoutPath('/logout');
-// everyauth.everymodule.logoutRedirectPath('/');
 
 
 

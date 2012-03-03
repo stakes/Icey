@@ -30,11 +30,12 @@ exports.showProjectsForAccount = function(req, res) {
     icey.getOrganizations(req, res, function(organizations) {
       var responseObj = { 
           title: 'Icey'
-        , repos: projects
+        , repos: icey.onlyProjectsWithIssues(true, projects)
+        , otherRepos: icey.onlyProjectsWithIssues(false, projects)
         , orgs: organizations
         , context: acct
       };
-      res.render('project', responseObj);
+      res.render('index', responseObj);
     });
   });
 };
@@ -54,7 +55,7 @@ exports.getSingleProject = function(req, res) {
       icey.getAllIssues(req, res, acct, function(open, closed) {
         var responseObj = { 
             title: 'Icey'
-          , repos: projects
+          , repos: icey.onlyProjectsWithIssues(true, projects)
           , orgs: organizations
           , context: acct
           , openissues: open
@@ -65,20 +66,6 @@ exports.getSingleProject = function(req, res) {
     });
   });
 }
-
-exports.getSingleProjectDeprecated = function(req, res) {
-  var gh = github;
-  gh.authenticate(req.params.user, req.params.key);
-  gh.getIssueApi().getList(req.params.user, req.params.id, 'closed', function(err, inf) {
-    var closed = inf;
-    gh.getIssueApi().getList(req.params.user, req.params.id, 'open', function(err, info) {
-      gh.getRepoApi().getUserRepos(req.params.user, function(err, resp) {
-        var responseObj = { title: 'Icey | '+req.params.id, user: req.params.user, key: req.params.key, pname: req.params.id, openissues: info, closedissues: closed, repos: resp};
-        res.render('project', responseObj);
-      });
-    });
-  });
-};
 
 
 
