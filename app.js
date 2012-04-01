@@ -36,7 +36,7 @@ UserSchema.plugin(mongooseauth, {
       , appSecret: config.github.appSecret
       , scope: 'user,repo'
       , redirectPath: '/'
-      , moduleTimeout: 999999
+      , moduleTimeout: 10000
     }
   }
 })

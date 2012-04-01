@@ -1,24 +1,19 @@
-script(type='text/html', id='projectselect').
-   <div class="modal" id="project-modal">
+script(type='text/html', id='newissue').
+   <div class="modal" id="newissue-modal">
      <div class="modal-header">
-       <img class="gravatar" src="http://www.gravatar.com/avatar/{{infoobj.gravatar_id}}" />
-       <h3 class="gravatar">Hey, {{infoobj.name}}</h3>
-       <div class="clearfix"></div>
+       <a href="#" class="close" data-dismiss="modal">×</a>
+       <h3>New issue</h3>
      </div>
      <div class="modal-body">
-       <form>
-        <input type="hidden" id="username" name="username" value="{{infoobj.login}}" />
-        <input type="hidden" id="key" name="key" value="" />
-        <label for="username">Select a project</label>
-        <select id="project-select">
-         {{#repos}}
-         <option value="{{name}}">{{name}}</option>
-         {{/repos}}
-        </select>
+       <form accept-charset="UTF-8" action="" method="POST">
+        <label for="title">Title</label>
+        <input class="span6" type="text" name="title" id="title" placeholder="Title" />
+        <textarea class="span6" type="text" name="body" id="body" placeholder="Description"></textarea>
      </div>
      <div class="modal-footer">
-        <a href="#" class="btn btn-primary" id="go-btn">Git er done</a>
+        <input type="submit" class="btn btn-success" value="Submit new issue" />
       </div>
+      </form>
    </div>
 
 script
@@ -53,6 +48,9 @@ script
             li.nav-header All projects
             li
               a(href="/context/#{context}/") View all
+        li.divider-vertical
+        li
+          a#new-issue Add issue
         li.divider-vertical
       ul.nav.pull-right
         li.dropdown

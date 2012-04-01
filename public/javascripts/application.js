@@ -14,6 +14,11 @@ $(document).ready(function() {
       }
     }
   });
+  $('#new-issue').click(function(evt) {
+    var m = ich.newissue();
+    $('body').append(m);
+    $(m).modal('show');
+  })
   
 });
 
