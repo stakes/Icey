@@ -60,12 +60,29 @@ exports.getSingleProject = function(req, res) {
           , context: acct
           , openissues: open
           , closedissues: closed
+          , project: req.params.project
         };
         res.render('project', responseObj);
       });
     });
   });
 }
+
+exports.newIssue = function(req, res) {
+  console.log("new issue")
+  if (typeof(req.session.auth)=='undefined') {
+    return res.redirect('/');
+  };
+  var acct = req.user.github.login;
+  if (typeof(req.params.account)!='undefined') {
+    acct = req.params.account
+  };
+  icey.createNewIssue(req, res, acct, function(success) {
+    console.log('done')
+  }); 
+  // var url = '/context/'+req.params.context+'/project/'+req.params.repo;
+  // res.redirect(url)
+};
 
 
 

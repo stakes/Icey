@@ -5,7 +5,9 @@ script(type='text/html', id='newissue').
        <h3>New issue</h3>
      </div>
      <div class="modal-body">
-       <form accept-charset="UTF-8" action="" method="POST">
+       <form accept-charset="UTF-8" action="/issue/new" method="POST">
+        <input type="hidden" name="context" value="#{context}" />
+        <input type="hidden" name="repo" value="#{project}" />
         <label for="title">Title</label>
         <input class="span6" type="text" name="title" id="title" placeholder="Title" />
         <textarea class="span6" type="text" name="body" id="body" placeholder="Description"></textarea>
@@ -18,17 +20,6 @@ script(type='text/html', id='newissue').
 
 script
   window.ICEY = window.ICEY || {};
-  
-- if (typeof pname !== 'undefined')
-  script
-    window.ICEY.repo = '#{pname}'
-
-script
-  if (typeof(window.ICEY.repo)!=='undefined') {
-    console.log('project has been selected')
-  } else {
-    console.log('no project yet')
-  }
 
 .navbar.navbar-fixed-top
   .navbar-inner
@@ -38,7 +29,7 @@ script
         li.divider-vertical
         li.dropdown
           a.dropdown-toggle(href='#', data-toggle='dropdown')
-            | Switch project
+            | #{project}
             b.caret
           ul.dropdown-menu
             li.nav-header With open issues

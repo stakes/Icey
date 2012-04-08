@@ -10,7 +10,8 @@ var express = require('express')
   , mongoose = require('mongoose')
   , mongooseauth = require('mongoose-auth')
   , _ = require('underscore')
-  , github = require('./lib/github');
+  , github = require('./lib/github')
+  , redis_store = require('connect-redis')(express);
 var app = module.exports = express.createServer();
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.SchemaTypes.ObjectId;
@@ -63,7 +64,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({secret: 'stakes'}));
+  app.use(express.session({secret: 'stakes', store: new redis_store }));
   // app.use(app.router);
   app.use(mongooseauth.middleware());
   app.use(express.static(pub));
@@ -88,6 +89,9 @@ app.get('/login', routes.login);
 app.get('/projects', routes.showProjectsForAccount);
 app.get('/context/:account', routes.showProjectsForAccount);
 app.get('/context/:account/project/:project', routes.getSingleProject);
+app.post('/issue/new', routes.newIssue);
+
+
 app.post('/authenticate', routes.authenticate);
 app.get('/issue/update/:user/:repo/:issue/:label/:key', routes.updateIssue);
 app.get('/issue/close/:user/:repo/:issue/:key', routes.closeIssue);
