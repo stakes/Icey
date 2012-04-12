@@ -87,6 +87,12 @@ exports.newIssue = function(req, res) {
   
 };
 
+exports.updateIssueState = function(req, res) {
+  console.log('about to update issue state');
+  icey.updateIssueLabel(req, res, 6, 'icey-icebox', function(error) {
+    console.log('awesome');
+  });
+}
 
 
 

@@ -90,6 +90,7 @@ app.get('/projects', routes.showProjectsForAccount);
 app.get('/context/:account', routes.showProjectsForAccount);
 app.get('/context/:account/project/:project', routes.getSingleProject);
 app.post('/issue/new', routes.newIssue);
+app.get('/label/update', routes.updateIssueState)
 
 
 app.post('/authenticate', routes.authenticate);
