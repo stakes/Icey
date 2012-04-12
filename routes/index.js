@@ -69,7 +69,6 @@ exports.getSingleProject = function(req, res) {
 }
 
 exports.newIssue = function(req, res) {
-  console.log("new issue")
   if (typeof(req.session.auth)=='undefined') {
     return res.redirect('/');
   };
@@ -77,11 +76,15 @@ exports.newIssue = function(req, res) {
   if (typeof(req.params.account)!='undefined') {
     acct = req.params.account
   };
-  icey.createNewIssue(req, res, acct, function(success) {
-    console.log('done')
+  icey.createNewIssue(req, res, acct, function(error) {
+    if (error == 'undefined' || error == null) {
+      var url = '/context/'+req.body.context+'/project/'+req.body.repo;
+      res.redirect(url)
+    } else {
+      console.log('error from github: '+error)
+    }
   }); 
-  // var url = '/context/'+req.params.context+'/project/'+req.params.repo;
-  // res.redirect(url)
+  
 };
 
 
