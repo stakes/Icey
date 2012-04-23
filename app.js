@@ -78,6 +78,11 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+app.dynamicHelpers({ 
+  issue_namespace: function(req, res) { 
+    return config.application_vars.namespace; 
+  } 
+});
 
 
 
@@ -90,7 +95,7 @@ app.get('/projects', routes.showProjectsForAccount);
 app.get('/context/:account', routes.showProjectsForAccount);
 app.get('/context/:account/project/:project', routes.getSingleProject);
 app.post('/issue/new', routes.newIssue);
-app.get('/label/update', routes.updateIssueState)
+app.get('/issue/:issue/update/:label', routes.updateIssueState)
 
 
 app.post('/authenticate', routes.authenticate);

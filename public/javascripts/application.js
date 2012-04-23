@@ -1,7 +1,7 @@
 $(document).ready(function() {
   
   $('.issue-item').draggable({opacity: 0.7, helper: 'clone'});
-  $('#backlog, #current, #completed, #icebox').droppable({
+  $('#backlog_ic, #current_ic, #completed_ic, #icebox_ic').droppable({
     drop: function(e, ui) {
       tgt = $(ui.draggable);
       tgt.appendTo($(this));
@@ -23,7 +23,7 @@ $(document).ready(function() {
 });
 
 var applyGithubLabel = function(tgt, id) {
-  $.get('/issue/update/'+window.ICEY.user+'/'+window.ICEY.repo+'/'+tgt.data('issue')+'/'+id+'/'+window.ICEY.key, function(r) {
+  $.get('/issue/'+tgt.data('issue')+'/update/'+id, function(r) {
     console.log(r)
   });
 }

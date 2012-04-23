@@ -69,7 +69,7 @@ script
         .span3
           h3 Icebox
         
-          .well#icebox
+          .well(id="icebox#{issue_namespace}")
             - each item in openissues
               .well.issue-item(data-issue="#{item.number}")
                 span.time= item.updated_at.substr(0, 10)
@@ -81,19 +81,19 @@ script
   
         .span3
           h3 Backlog
-          .well#backlog
+          .well(id="backlog#{issue_namespace}")
   
   
         .span3
           h3 Current
-          .well#current
+          .well(id="current#{issue_namespace}")
   
   
         .span3
           h3 Complete
-          .well#completed
+          .well(id="completed#{issue_namespace}")
             - each item in closedissues
-              .well.issue-item
+              .well.issue-item(data-issue="#{item.number}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
