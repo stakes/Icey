@@ -88,10 +88,8 @@ exports.newIssue = function(req, res) {
 };
 
 exports.updateIssueState = function(req, res) {
-  console.log('about to update issue state');
   icey.updateIssueLabel(req, res, req.params.issue, req.params.label, function(error, resp) {
     if (error) {
-      console.log('not awesome');
       console.log(error);
     } else {
       console.log(resp);
