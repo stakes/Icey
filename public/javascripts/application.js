@@ -6,11 +6,10 @@ $(document).ready(function() {
       tgt = $(ui.draggable);
       tgt.appendTo($(this));
       applyVisualLabel(tgt, $(this).attr('id'));
-      
-      if ($(this).attr('id') == 'completed') {
-        closeIssue(tgt)
+      if ($(this).attr('id') == 'completed_ic') {
+        applyGithubLabel(tgt, $(this).attr('id'), 'closed');
       } else {
-        applyGithubLabel(tgt, $(this).attr('id'));
+        applyGithubLabel(tgt, $(this).attr('id'), 'open');
       }
     }
   });
@@ -22,8 +21,13 @@ $(document).ready(function() {
   
 });
 
-var applyGithubLabel = function(tgt, id) {
-  $.get('/issue/'+tgt.data('issue')+'/update/'+id, function(r) {
+var applyGithubLabel = function(tgt, id, state) {
+  var url = '/issue/'+tgt.data('issue')+'/update/'+id;
+  console.log(url);
+  console.log(typeof(state));
+  if (typeof(state) != undefined) url = url+'/state/'+state;
+  console.log(url);
+  $.get(url, function(r) {
     console.log(r)
   });
 }
@@ -37,12 +41,12 @@ var closeIssue = function(tgt) {
 var applyVisualLabel = function(tgt, id) {
   tgt.find('.item-label').remove();
   label = tgt.append('<span class="item-label label"></div>');
-  if (id == 'backlog') {
+  if (id == 'backlog_ic') {
     tgt.find('.item-label').html('BACKLOG');
     tgt.find('.item-label').addClass('label-info');
-  } else if (id == 'icebox') {
+  } else if (id == 'icebox_ic') {
     tgt.find('.item-label').html('ICEBOX');
-  } else if (id == 'current') {
+  } else if (id == 'current_ic') {
     tgt.find('.item-label').html('IN PROGRESS');
     tgt.find('.item-label').addClass('label-success');
   } else {

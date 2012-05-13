@@ -87,15 +87,16 @@ exports.newIssue = function(req, res) {
   
 };
 
-exports.updateIssueState = function(req, res) {
-  icey.updateIssueLabel(req, res, req.params.issue, req.params.label, function(error, resp) {
+exports.updateIssue = function(req, res) {
+  icey.updateIssue(req, res, req.params.issue, req.params.label, req.params.state, function(error, resp) {
     if (error) {
       console.log(error);
     } else {
       console.log(resp);
     }
   });
-}
+};
+
 
 
 
@@ -109,14 +110,6 @@ exports.authenticate = function(req, res) {
           res.send(responseObj);
         });
     });
-};
-
-exports.updateIssue = function(req, res) {
-  var gh = github;
-  gh.authenticate(req.params.user, req.params.key);
-  gh.getIssueApi().addIssueLabel(req.params.user, req.params.repo, req.params.issue, req.params.label, function(err, info) {
-    res.send(info)
-  });
 };
 
 exports.closeIssue = function(req, res) {
