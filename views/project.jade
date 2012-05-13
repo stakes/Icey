@@ -70,7 +70,7 @@ script
           h3 Icebox
         
           .well(id="icebox#{issue_namespace}")
-            - each item in openissues
+            - each item in iceboxissues
               .well.issue-item(data-issue="#{item.number}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
@@ -81,12 +81,30 @@ script
   
         .span3
           h3 Backlog
+          
           .well(id="backlog#{issue_namespace}")
+            - each item in backlogissues
+              .well.issue-item(data-issue="#{item.number}")
+                span.time= item.updated_at.substr(0, 10)
+                h2= item.title
+                hr
+                p= item.body
+                a(href="#{item.html_url}", target="_blank") View on GitHub
+                span.label.item-label.label-info BACKLOG
   
   
         .span3
           h3 Current
+          
           .well(id="current#{issue_namespace}")
+            - each item in currentissues
+              .well.issue-item(data-issue="#{item.number}")
+                span.time= item.updated_at.substr(0, 10)
+                h2= item.title
+                hr
+                p= item.body
+                a(href="#{item.html_url}", target="_blank") View on GitHub
+                span.label.item-label.label-success STARTED
   
   
         .span3

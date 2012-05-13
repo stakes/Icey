@@ -47,7 +47,7 @@ var applyVisualLabel = function(tgt, id) {
   } else if (id == 'icebox_ic') {
     tgt.find('.item-label').html('ICEBOX');
   } else if (id == 'current_ic') {
-    tgt.find('.item-label').html('IN PROGRESS');
+    tgt.find('.item-label').html('STARTED');
     tgt.find('.item-label').addClass('label-success');
   } else {
     tgt.find('.item-label').html('CLOSED');

@@ -1,7 +1,10 @@
-var https = require('https');
-var github = require('../lib/github');
-var icey = require('../lib/icey')
-var _ = require('underscore');
+var https = require('https')
+, github = require('../lib/github')
+, icey = require('../lib/icey')
+, _ = require('underscore')
+, env = process.env.NODE_ENV || 'development'
+, config_file = require('../node_modules/yaml-config')
+, config = config_file.readConfig('config/config.yaml', env);
 
 exports.index = function(req, res){
   if (req.loggedIn) {
@@ -46,19 +49,36 @@ exports.getSingleProject = function(req, res) {
   };
   var acct = req.user.github.login;
   if (typeof(req.params.account)!='undefined') {
-    acct = req.params.account
+    acct = req.params.account;
   };
   icey.getProjects(req, res, acct, function(projects) {
     // now get organizations for that user
     icey.getOrganizations(req, res, function(organizations) {
       // and now the get the issues for the selected project
       icey.getAllIssues(req, res, acct, function(open, closed) {
+        var backlog, current, icebox;
+        backlog = _.filter(open, function(issue) {
+          var labelnames = _.map(issue.labels, function(label) { return String(label.name) })
+          label = 'backlog'+config.application_vars.namespace;
+          return _.include(labelnames, label)
+        });
+        current = _.filter(open, function(issue) {
+          var labelnames = _.map(issue.labels, function(label) { return String(label.name) })
+          label = 'current'+config.application_vars.namespace;
+          return _.include(labelnames, label)
+        });
+        icebox = _.reject(open, function(issue) {
+          return (_.include(backlog, issue) || _.include(current, issue))
+        })
         var responseObj = { 
             title: 'Icey'
           , repos: icey.onlyProjectsWithIssues(true, projects)
           , orgs: organizations
           , context: acct
           , openissues: open
+          , iceboxissues: icebox
+          , currentissues: current
+          , backlogissues: backlog
           , closedissues: closed
           , project: req.params.project
         };
@@ -84,7 +104,6 @@ exports.newIssue = function(req, res) {
       console.log('error from github: '+error)
     }
   }); 
-  
 };
 
 exports.updateIssue = function(req, res) {
@@ -96,10 +115,6 @@ exports.updateIssue = function(req, res) {
     }
   });
 };
-
-
-
-
 
 exports.authenticate = function(req, res) {
     var gh = github
