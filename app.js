@@ -101,7 +101,7 @@ app.get('/issue/:issue/update/:label/state/:state', routes.updateIssue);
 app.post('/authenticate', routes.authenticate);
 app.get('/issue/update/:user/:repo/:issue/:label/:key', routes.updateIssue);
 app.get('/issue/close/:user/:repo/:issue/:key', routes.closeIssue);
-
+app.post('/issues/reorder', routes.reorderIssues);
 
 
 

@@ -1,35 +1,21 @@
 $(document).ready(function() {
   
-  // $('.issue-item').draggable({opacity: 0.7, helper: 'clone'});
-  // $('#backlog_ic, #current_ic, #completed_ic, #icebox_ic').droppable({
-  //   drop: function(e, ui) {
-  //     tgt = $(ui.draggable);
-  //     tgt.appendTo($(this));
-  //     applyVisualLabel(tgt, $(this).attr('id'));
-  //     if ($(this).attr('id') == 'completed_ic') {
-  //       applyGithubLabel(tgt, $(this).attr('id'), 'closed');
-  //     } else {
-  //       applyGithubLabel(tgt, $(this).attr('id'), 'open');
-  //     }
-  //   }
-  // });
   $('.statecolumn').sortable({
     helper: 'clone',
     forcePlaceholderSize: true,
     connectWith: '.statecolumn',
     update: function(evt, ui) {
       tgt = $(ui.item);
-      els = tgt.parent().find('.issue-item');
+      container = tgt.parent();
+      els = container.find('.issue-item');
       els.each(function(i) {
-        console.log(i);
         $(this).attr('data-position', i);
-        console.log($(this).data('position'));
       });
+      updateIssueOrder(els);
     },
     receive: function(evt, ui) {
       tgt = $(ui.item);
       applyVisualLabel(tgt, $(this).attr('id'));
-      console.log(tgt.data('position'))
       if ($(this).attr('id') == 'completed_ic') {
         applyGithubLabel(tgt, $(this).attr('id'), 'closed');
       } else {
@@ -45,17 +31,40 @@ $(document).ready(function() {
   
 });
 
+var updateIssueOrder = function(els) {
+  var issueobj, d;
+  issueobj = {};
+  $(els).each(function(i) {
+    var el = $(this),
+        id = el.attr('data-githubid'),
+        pos = el.attr('data-position');
+    issueobj[id] = pos;
+  });
+  d = {
+    github_id: window.ICEY.github_id,
+    issues: JSON.stringify(issueobj)
+  };
+  $.ajax({
+        type: 'POST'
+      , url: '/issues/reorder'
+      , data: d
+      , success: function(r) {
+        // TODO: something
+      }
+  });
+};
+
 var applyGithubLabel = function(tgt, id, state) {
   var url = '/issue/'+tgt.data('issue')+'/update/'+id;
   if (typeof(state) != undefined) url = url+'/state/'+state;
   $.get(url, function(r) {
-    console.log('updated state');
+    // TODO: something
   });
 }
 
 var closeIssue = function(tgt) {
   $.get('/issue/close/'+window.ICEY.user+'/'+window.ICEY.repo+'/'+tgt.data('issue')+'/'+window.ICEY.key, function(r) {
-    console.log(r)
+    // TODO: something
   });
 }
 

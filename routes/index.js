@@ -55,7 +55,7 @@ exports.getSingleProject = function(req, res) {
     // now get organizations for that user
     icey.getOrganizations(req, res, function(organizations) {
       // and now the get the issues for the selected project
-      icey.getAllIssues(req, res, acct, function(open, closed) {
+      icey.getAllIssues(req, res, acct, function(open, closed, github_id) {
         var backlog, current, icebox;
         backlog = _.filter(open, function(issue) {
           var labelnames = _.map(issue.labels, function(label) { return String(label.name) })
@@ -71,7 +71,8 @@ exports.getSingleProject = function(req, res) {
           return (_.include(backlog, issue) || _.include(current, issue))
         })
         var responseObj = { 
-            title: 'Icey'
+            title: 'IceHub: '+acct+'/'+req.params.project
+          , project_id: github_id
           , repos: icey.onlyProjectsWithIssues(true, projects)
           , orgs: organizations
           , context: acct
@@ -87,6 +88,23 @@ exports.getSingleProject = function(req, res) {
     });
   });
 }
+
+exports.reorderIssues = function(req, res) {
+  if (typeof(req.session.auth)=='undefined') {
+    return res.redirect('/');
+  };
+  var acct = req.user.github.login;
+  if (typeof(req.params.account)!='undefined') {
+    acct = req.params.account;
+  };
+  icey.updateIssuesOrder(req, res, function(error) {
+    if (error == 'undefined' || error == null) {
+      res.send('OK');
+    } else {
+      console.log('error from github: '+error)
+    }
+  })
+};
 
 exports.newIssue = function(req, res) {
   if (typeof(req.session.auth)=='undefined') {
@@ -112,6 +130,7 @@ exports.updateIssue = function(req, res) {
       console.log(error);
     } else {
       console.log(resp);
+      res.send('OK');
     }
   });
 };

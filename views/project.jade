@@ -20,6 +20,7 @@ script(type='text/html', id='newissue').
 
 script
   window.ICEY = window.ICEY || {};
+  window.ICEY.github_id = '#{project_id}'
 
 .navbar.navbar-fixed-top
   .navbar-inner
@@ -71,7 +72,7 @@ script
         
           .well.statecolumn(id="icebox#{issue_namespace}")
             - each item, index in iceboxissues
-              .well.issue-item(data-issue="#{item.number}", data-position="#{index}")
+              .well.issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -84,7 +85,7 @@ script
           
           .well.statecolumn(id="backlog#{issue_namespace}")
             - each item, index in backlogissues
-              .well.issue-item(data-issue="#{item.number}", data-position="#{index}")
+              .well.issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -98,7 +99,7 @@ script
           
           .well.statecolumn(id="current#{issue_namespace}")
             - each item, index in currentissues
-              .well.issue-item(data-issue="#{item.number}", data-position="#{index}")
+              .well.issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -111,7 +112,7 @@ script
           h3 Complete
           .well.statecolumn(id="completed#{issue_namespace}")
             - each item, index in closedissues
-              .well.issue-item(data-issue="#{item.number}", data-position="#{index}")
+              .well.issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
