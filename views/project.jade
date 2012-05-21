@@ -69,9 +69,9 @@ script
         .span3
           h3 Icebox
         
-          .well(id="icebox#{issue_namespace}")
-            - each item in iceboxissues
-              .well.issue-item(data-issue="#{item.number}")
+          .well.statecolumn(id="icebox#{issue_namespace}")
+            - each item, index in iceboxissues
+              .well.issue-item(data-issue="#{item.number}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -82,9 +82,9 @@ script
         .span3
           h3 Backlog
           
-          .well(id="backlog#{issue_namespace}")
-            - each item in backlogissues
-              .well.issue-item(data-issue="#{item.number}")
+          .well.statecolumn(id="backlog#{issue_namespace}")
+            - each item, index in backlogissues
+              .well.issue-item(data-issue="#{item.number}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -96,9 +96,9 @@ script
         .span3
           h3 Current
           
-          .well(id="current#{issue_namespace}")
-            - each item in currentissues
-              .well.issue-item(data-issue="#{item.number}")
+          .well.statecolumn(id="current#{issue_namespace}")
+            - each item, index in currentissues
+              .well.issue-item(data-issue="#{item.number}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -109,9 +109,9 @@ script
   
         .span3
           h3 Complete
-          .well(id="completed#{issue_namespace}")
-            - each item in closedissues
-              .well.issue-item(data-issue="#{item.number}")
+          .well.statecolumn(id="completed#{issue_namespace}")
+            - each item, index in closedissues
+              .well.issue-item(data-issue="#{item.number}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr

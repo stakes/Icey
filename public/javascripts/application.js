@@ -1,18 +1,42 @@
 $(document).ready(function() {
   
-  $('.issue-item').draggable({opacity: 0.7, helper: 'clone'});
-  $('#backlog_ic, #current_ic, #completed_ic, #icebox_ic').droppable({
-    drop: function(e, ui) {
-      tgt = $(ui.draggable);
-      tgt.appendTo($(this));
+  // $('.issue-item').draggable({opacity: 0.7, helper: 'clone'});
+  // $('#backlog_ic, #current_ic, #completed_ic, #icebox_ic').droppable({
+  //   drop: function(e, ui) {
+  //     tgt = $(ui.draggable);
+  //     tgt.appendTo($(this));
+  //     applyVisualLabel(tgt, $(this).attr('id'));
+  //     if ($(this).attr('id') == 'completed_ic') {
+  //       applyGithubLabel(tgt, $(this).attr('id'), 'closed');
+  //     } else {
+  //       applyGithubLabel(tgt, $(this).attr('id'), 'open');
+  //     }
+  //   }
+  // });
+  $('.statecolumn').sortable({
+    helper: 'clone',
+    forcePlaceholderSize: true,
+    connectWith: '.statecolumn',
+    update: function(evt, ui) {
+      tgt = $(ui.item);
+      els = tgt.parent().find('.issue-item');
+      els.each(function(i) {
+        console.log(i);
+        $(this).attr('data-position', i);
+        console.log($(this).data('position'));
+      });
+    },
+    receive: function(evt, ui) {
+      tgt = $(ui.item);
       applyVisualLabel(tgt, $(this).attr('id'));
+      console.log(tgt.data('position'))
       if ($(this).attr('id') == 'completed_ic') {
         applyGithubLabel(tgt, $(this).attr('id'), 'closed');
       } else {
         applyGithubLabel(tgt, $(this).attr('id'), 'open');
       }
     }
-  });
+  }).disableSelection();;
   $('#new-issue').click(function(evt) {
     var m = ich.newissue();
     $('body').append(m);
@@ -23,12 +47,9 @@ $(document).ready(function() {
 
 var applyGithubLabel = function(tgt, id, state) {
   var url = '/issue/'+tgt.data('issue')+'/update/'+id;
-  console.log(url);
-  console.log(typeof(state));
   if (typeof(state) != undefined) url = url+'/state/'+state;
-  console.log(url);
   $.get(url, function(r) {
-    console.log(r)
+    console.log('updated state');
   });
 }
 
