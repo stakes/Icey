@@ -34,13 +34,17 @@ script
   } else {
     console.log('no project yet')
   }
+    
+#topbar
+  ul
+    li
+      a(href="/logout") Log out
 
 .navbar.navbar-fixed-top
   .navbar-inner
     .container-fluid
       a.brand= context
       ul.nav
-        li.divider-vertical
         li.dropdown
           a.dropdown-toggle(href='#', data-toggle='dropdown')
             | Switch project
@@ -53,7 +57,6 @@ script
             li.nav-header All projects
             li
               a(href="/context/#{context}/") View all
-        li.divider-vertical
       ul.nav.pull-right
         li.dropdown
           a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -66,7 +69,6 @@ script
             - each item in orgs
               li
                 a(href="/context/#{item.login}/")= item.login
-        li.divider-vertical
         li
           a(href="/logout") Log out
 

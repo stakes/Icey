@@ -21,13 +21,28 @@ script(type='text/html', id='newissue').
 script
   window.ICEY = window.ICEY || {};
   window.ICEY.github_id = '#{project_id}'
+  
+#topbar
+  ul
+    li
+      a(href="/logout") Log out
 
 .navbar.navbar-fixed-top
   .navbar-inner
+    img(src='/images/top-bar-logo.png')
     .container-fluid
-      a.brand= context
       ul.nav
-        li.divider-vertical
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            span <strong>#{context}</strong>&nbsp;
+            b.caret
+          ul.dropdown-menu
+            li.nav-header Use as
+            li
+              a(href="/projects")= user.github.login  
+            - each item in orgs
+              li
+                a(href="/context/#{item.login}/")= item.login
         li.dropdown
           a.dropdown-toggle(href='#', data-toggle='dropdown')
             | #{project}
@@ -40,25 +55,9 @@ script
             li.nav-header All projects
             li
               a(href="/context/#{context}/") View all
-        li.divider-vertical
+      ul.nav.pull-right
         li
           a#new-issue Add issue
-        li.divider-vertical
-      ul.nav.pull-right
-        li.dropdown
-          a.dropdown-toggle(href='#', data-toggle='dropdown')
-            span <strong>#{context}</strong>&nbsp;
-            b.caret
-          ul.dropdown-menu
-            li.nav-header Use as
-            li
-              a(href="/projects")= user.github.login  
-            - each item in orgs
-              li
-                a(href="/context/#{item.login}/")= item.login
-        li.divider-vertical
-        li
-          a(href="/logout") Log out
 
 - if (typeof openissues !='undefined')
 
