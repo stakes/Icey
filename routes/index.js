@@ -127,9 +127,8 @@ exports.newIssue = function(req, res) {
 exports.updateIssue = function(req, res) {
   icey.updateIssue(req, res, req.params.issue, req.params.label, req.params.state, function(error, resp) {
     if (error) {
-      console.log(error);
+      console.log('error from github: '+error);
     } else {
-      console.log(resp);
       res.send('OK');
     }
   });
