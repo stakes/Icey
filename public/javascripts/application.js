@@ -22,12 +22,16 @@ $(document).ready(function() {
         applyGithubLabel(tgt, $(this).attr('id'), 'open');
       }
     }
-  }).disableSelection();;
+  }).disableSelection();
+  
   $('#new-issue').click(function(evt) {
     var m = ich.newissue();
     $('body').append(m);
     $(m).modal('show');
-  })
+  });
+  
+  $(window).resize(resizeColumns);
+  resizeColumns();
   
 });
 
@@ -83,4 +87,10 @@ var applyVisualLabel = function(tgt, id) {
     tgt.find('.item-label').html('CLOSED');
     tgt.find('.item-label').addClass('label-important');
   }
+};
+
+var resizeColumns = function() {
+  var hgt = $(window).height();
+  console.log(hgt);
+  $(".statecolumn").height(hgt - 200);
 };

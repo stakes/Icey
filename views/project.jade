@@ -66,12 +66,12 @@ script
     .container-fluid
       .row-fluid
 
-        .span3
+        .span3.column-outer
           h3 Icebox
         
           .well.statecolumn(id="icebox#{issue_namespace}")
             - each item, index in iceboxissues
-              .well.issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
+              .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -79,12 +79,12 @@ script
                 a(href="#{item.html_url}", target="_blank") View on GitHub
                 span.label.item-label ICEBOX 
   
-        .span3
+        .span3.column-outer
           h3 Backlog
           
           .well.statecolumn(id="backlog#{issue_namespace}")
             - each item, index in backlogissues
-              .well.issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
+              .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -93,12 +93,12 @@ script
                 span.label.item-label.label-info BACKLOG
   
   
-        .span3
+        .span3.column-outer
           h3 Current
           
           .well.statecolumn(id="current#{issue_namespace}")
             - each item, index in currentissues
-              .well.issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
+              .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
@@ -107,11 +107,11 @@ script
                 span.label.item-label.label-success STARTED
   
   
-        .span3
+        .span3.column-outer
           h3 Complete
           .well.statecolumn(id="completed#{issue_namespace}")
             - each item, index in closedissues
-              .well.issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
+              .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
                 span.time= item.updated_at.substr(0, 10)
                 h2= item.title
                 hr
