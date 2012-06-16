@@ -56,6 +56,7 @@ exports.getSingleProject = function(req, res) {
     icey.getOrganizations(req, res, function(organizations) {
       // and now the get the issues for the selected project
       icey.getAllIssues(req, res, acct, req.params.owner, function(open, closed, github_id) {
+        console.log(github_id)
         var backlog, current, icebox;
         backlog = _.filter(open, function(issue) {
           var labelnames = _.map(issue.labels, function(label) { return String(label.name) })

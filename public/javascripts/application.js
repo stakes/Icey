@@ -48,12 +48,16 @@ var updateIssueOrder = function(els) {
     github_id: window.ICEY.github_id,
     issues: JSON.stringify(issueobj)
   };
+  console.log(d)
   $.ajax({
         type: 'POST'
       , url: '/issues/reorder'
       , data: d
       , success: function(r) {
         // TODO: something
+      }
+      , error: function(e) {
+        console.log(e)
       }
   });
 };

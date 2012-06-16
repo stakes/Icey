@@ -86,6 +86,9 @@ app.dynamicHelpers({
 
 
 
+
+
+
 // Routes
 
 
@@ -93,7 +96,7 @@ app.get('/', routes.index);
 app.get('/login', routes.login);
 app.get('/projects', routes.showProjectsForAccount);
 app.get('/context/:account', routes.showProjectsForAccount);
-app.get('/context/:account/project/:project', routes.getSingleProject);
+app.get('/context/:account/project/:owner/:project', routes.getSingleProject);
 app.post('/issue/new', routes.newIssue);
 app.get('/issue/:issue/update/:label/state/:state', routes.updateIssue);
 
