@@ -110,10 +110,7 @@ exports.newIssue = function(req, res) {
   if (typeof(req.session.auth)=='undefined') {
     return res.redirect('/');
   };
-  var acct = req.user.github.login;
-  if (typeof(req.params.account)!='undefined') {
-    acct = req.params.account
-  };
+  acct = req.session.context
   icey.createNewIssue(req, res, acct, function(error) {
     if (error == 'undefined' || error == null) {
       var url = '/context/'+req.body.context+'/project/'+req.body.repo;
