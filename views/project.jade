@@ -51,7 +51,7 @@ script
             li.nav-header With open issues
             - each item in repos
               li
-                a(href="/context/#{context}/project/#{item.name}/")= item.name
+                a(href="/context/#{context}/project/#{item.owner.login}/#{item.name}/")= item.name
             li.nav-header All projects
             li
               a(href="/context/#{context}/") View all

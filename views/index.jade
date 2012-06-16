@@ -83,7 +83,7 @@ script
       - each item in repos
         tr
           td
-            a(href="/context/#{context}/project/#{item.name}/")= item.name
+            a(href="/context/#{context}/project/#{item.owner.login}/#{item.name}/", data-owner="#{item.owner.login}")= item.name
           td= item.open_issues
             
     h3 Other repos
@@ -94,5 +94,5 @@ script
       - each item in otherRepos
         tr
           td
-            a(href="/context/#{context}/project/#{item.name}/")= item.name
+            a(href="/context/#{context}/project/#{item.owner.login}/#{item.name}/", data-owner="#{item.owner.login}")= item.name
           td= item.open_issues
