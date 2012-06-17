@@ -20,9 +20,6 @@ script(type='text/html', id='projectselect').
         <a href="#" class="btn btn-primary" id="go-btn">Git er done</a>
       </div>
    </div>
-
-script
-  window.ICEY = window.ICEY || {};
   
 - if (typeof pname !== 'undefined')
   script
@@ -34,43 +31,6 @@ script
   } else {
     console.log('no project yet')
   }
-    
-#topbar
-  ul
-    li
-      a(href="/logout") Log out
-
-.navbar.navbar-fixed-top
-  .navbar-inner
-    .container-fluid
-      a.brand= context
-      ul.nav
-        li.dropdown
-          a.dropdown-toggle(href='#', data-toggle='dropdown')
-            | Switch project
-            b.caret
-          ul.dropdown-menu
-            li.nav-header With open issues
-            - each item in repos
-              li
-                a(href="/context/#{context}/project/#{item.name}/")= item.name
-            li.nav-header All projects
-            li
-              a(href="/context/#{context}/") View all
-      ul.nav.pull-right
-        li.dropdown
-          a.dropdown-toggle(href='#', data-toggle='dropdown')
-            span <strong>#{context}</strong>&nbsp;
-            b.caret
-          ul.dropdown-menu
-            li.nav-header Use as
-            li
-              a(href="/projects")= user.github.login  
-            - each item in orgs
-              li
-                a(href="/context/#{item.login}/")= item.login
-        li
-          a(href="/logout") Log out
 
 
 #board

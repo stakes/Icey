@@ -11,6 +11,49 @@ html
     script(src='/javascripts/icanhaz.js')
     script(src='/javascripts/jquery.backstretch.min.js')
     script(src='/javascripts/application.js')
-      
+  
+    script
+      window.ICEY = window.ICEY || {};    
           
-  body!= body 
+  body
+  
+  
+    #topbar
+      ul
+        li
+          a(href="/logout") Log out
+
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        img(src='/images/top-bar-logo.png')
+        .container-fluid
+          ul.nav
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown')
+                span <strong>#{context}</strong>&nbsp;
+                b.caret
+              ul.dropdown-menu
+                li.nav-header Use as
+                li
+                  a(href="/projects")= user.github.login  
+                - each item in orgs
+                  li
+                    a(href="/context/#{item.login}/")= item.login
+            - if (typeof project !='undefined')
+              li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown')
+                  | #{project}
+                  b.caret
+                ul.dropdown-menu
+                  li.nav-header With open issues
+                  - each item in repos
+                    li
+                      a(href="/context/#{context}/project/#{item.owner.login}/#{item.name}/")= item.name
+                  li.nav-header All projects
+                  li
+                    a(href="/context/#{context}/") View all
+          ul.nav.pull-right
+            li
+              a#new-issue Add issue
+  
+    != body 
