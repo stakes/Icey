@@ -1,0 +1,8 @@
+mixin column_item(item, index, status)
+  .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
+    span.time= item.updated_at.substr(0, 10)
+    h2= item.title
+    hr
+    p= item.body
+    a(href="#{item.html_url}", target="_blank") View on GitHub
+    span.label.item-label= status

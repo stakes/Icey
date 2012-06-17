@@ -1,3 +1,6 @@
+include _column_header
+include _column_item
+
 script(type='text/html', id='newissue').
    <div class="modal" id="newissue-modal">
      <div class="modal-header">
@@ -32,51 +35,31 @@ script
           h3 Icebox
         
           .well.statecolumn(id="icebox#{issue_namespace}")
+            mixin column_header
             - each item, index in iceboxissues
-              .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
-                span.time= item.updated_at.substr(0, 10)
-                h2= item.title
-                hr
-                p= item.body
-                a(href="#{item.html_url}", target="_blank") View on GitHub
-                span.label.item-label ICEBOX 
+              mixin column_item(item, index, 'ICEBOX')
   
         .span3.column-outer
           h3 Backlog
           
           .well.statecolumn(id="backlog#{issue_namespace}")
+            mixin column_header
             - each item, index in backlogissues
-              .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
-                span.time= item.updated_at.substr(0, 10)
-                h2= item.title
-                hr
-                p= item.body
-                a(href="#{item.html_url}", target="_blank") View on GitHub
-                span.label.item-label.label-info BACKLOG
+              mixin column_item(item, index, 'BACKLOG')
   
   
         .span3.column-outer
           h3 Current
           
           .well.statecolumn(id="current#{issue_namespace}")
+            mixin column_header
             - each item, index in currentissues
-              .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
-                span.time= item.updated_at.substr(0, 10)
-                h2= item.title
-                hr
-                p= item.body
-                a(href="#{item.html_url}", target="_blank") View on GitHub
-                span.label.item-label.label-success STARTED
+              mixin column_item(item, index, 'STARTED')
   
   
         .span3.column-outer
           h3 Complete
           .well.statecolumn(id="completed#{issue_namespace}")
+            mixin column_header
             - each item, index in closedissues
-              .issue-item(data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
-                span.time= item.updated_at.substr(0, 10)
-                h2= item.title
-                hr
-                p= item.body
-                a(href="#{item.html_url}", target="_blank") View on GitHub  
-                span.label.item-label.label-important CLOSED      
+              mixin column_item(item, index, 'CLOSED')    
