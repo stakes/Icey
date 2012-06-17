@@ -30,6 +30,9 @@ $(document).ready(function() {
     $(m).modal('show');
   });
   
+  console.log($('.list-filter-drop'))
+  $('.list-filter-drop').dropdown();
+  
   $(window).resize(resizeColumns);
   resizeColumns();
   
