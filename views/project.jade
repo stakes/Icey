@@ -34,32 +34,33 @@ script
         .span3.column-outer
           h3 Icebox
         
+          mixin column_header
           .well.statecolumn(id="icebox#{issue_namespace}")
-            mixin column_header
             - each item, index in iceboxissues
-              mixin column_item(item, index, 'ICEBOX')
+              mixin column_item(item, index, 'icebox')
   
         .span3.column-outer
           h3 Backlog
           
+          mixin column_header
           .well.statecolumn(id="backlog#{issue_namespace}")
-            mixin column_header
             - each item, index in backlogissues
-              mixin column_item(item, index, 'BACKLOG')
+              mixin column_item(item, index, 'backlog')
   
   
         .span3.column-outer
           h3 Current
           
+          mixin column_header
           .well.statecolumn(id="current#{issue_namespace}")
-            mixin column_header
             - each item, index in currentissues
-              mixin column_item(item, index, 'STARTED')
+              mixin column_item(item, index, 'started')
   
   
         .span3.column-outer
           h3 Complete
+          
+          mixin column_header
           .well.statecolumn(id="completed#{issue_namespace}")
-            mixin column_header
             - each item, index in closedissues
-              mixin column_item(item, index, 'CLOSED')    
+              mixin column_item(item, index, 'closed')    
