@@ -10,7 +10,7 @@ exports.index = function(req, res){
   if (req.loggedIn) {
 	    return res.redirect('/projects');
 	}
-	res.render('login', { title: 'Icey' });
+	res.render('login', { title: 'Icey', layout: 'landing_layout' });
 };
 
 exports.login = function(req, res){
