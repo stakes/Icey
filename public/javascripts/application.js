@@ -15,7 +15,7 @@ $(document).ready(function() {
     },
     receive: function(evt, ui) {
       tgt = $(ui.item);
-      applyVisualLabel(tgt, $(this).attr('id'));
+      applyVisualStatus(tgt, $(this).attr('id'));
       if ($(this).attr('id') == 'completed_ic') {
         applyGithubLabel(tgt, $(this).attr('id'), 'closed');
       } else {
@@ -79,21 +79,20 @@ var closeIssue = function(tgt) {
   });
 }
 
-var applyVisualLabel = function(tgt, id) {
-  tgt.find('.item-label').remove();
-  label = tgt.append('<span class="item-label label"></div>');
+var applyVisualStatus = function(tgt, id) {
+
+  var c = tgt.attr('class').split(' ')[1];
+  tgt.removeClass(c);
   if (id == 'backlog_ic') {
-    tgt.find('.item-label').html('BACKLOG');
-    tgt.find('.item-label').addClass('label-info');
+    tgt.addClass('backlog');
   } else if (id == 'icebox_ic') {
-    tgt.find('.item-label').html('ICEBOX');
+    tgt.addClass('icebox');
   } else if (id == 'current_ic') {
-    tgt.find('.item-label').html('STARTED');
-    tgt.find('.item-label').addClass('label-success');
+    tgt.addClass('started');
   } else {
-    tgt.find('.item-label').html('CLOSED');
-    tgt.find('.item-label').addClass('label-important');
+    tgt.addClass('closed');
   }
+
 };
 
 var resizeColumns = function() {
