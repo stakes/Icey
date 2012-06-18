@@ -40,6 +40,9 @@ h3 {
             font-size: 10px;
             text-shadow: 0 1px 0 rgba(255,255,255,.3);
         }
+        li {
+            line-height: 20px;
+        }
     }
 }
 
@@ -90,11 +93,29 @@ h3 {
     h3 {
         margin-bottom: 12px;
     }
+    .header {
+        .border-radius(4px, 0, 0, 4px);
+        .gradient(#c1c4c6, #9ca0a4, #c1c4c6);
+        height: 16px;
+        padding: 4px;
+        border-bottom: 1px solid #c5cacd;
+        a.list-filter-drop {
+            color: #fefefe;
+            text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+            font-weight: bold;
+            font-size: 11px;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
     .well {
+        padding: 0;
         height: 100%;
         overflow-y: scroll;
         background-color: #d7e0e5;
         .box-shadow(inset 0 0 5px rgba(0,0,0,.15));
+        .border-radius(0, 4px, 4px, 0);
     }
 }
 
@@ -114,19 +135,42 @@ h3.gravatar {
     display: inline-block;
 }
 
+
 .issue-item {
-    background-color: #fff;
+    .gradient(#f6f7f7, #f6f7f7, #fff);
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #ebeced;
+    border-left: 4px solid #eaaf48;
+    padding: 6px 8px;
+    &.icebox {
+        border-left: 4px solid #4996d0;
+    }
+    &.backlog {
+        border-left: 4px solid #eaaf48;
+    }
+    &.started {
+        border-left: 4px solid #4fc94a;
+    }
+    &.closed {
+        border-left: 4px solid #e34141;
+    }
+    p {
+        font-size: 11px;
+        font-weight: 300;
+        color: #47494a;
+        font-family: 'OpenSans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    h2 {
+        line-height: 18px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #363a3e;
+    }
 }
 span.time {
     font-size: 11px;
 }
-.issue-item hr {
-    margin: 3px 0 6px;
-}
-.issue-item h2 {
-    line-height: 18px;
-    font-size: 14px;
-}
+
 .issue-item p {
     margin-top: 4px;
 }
