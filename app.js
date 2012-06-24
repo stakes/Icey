@@ -78,10 +78,23 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+app.helpers({
+  truncate: function(str, len, suffix) {
+    if (str.length > len) {
+      var r, s;
+      r = str.substring(0, len);
+      s = typeof suffix !== 'undefined' ? suffix : '...';    
+      return r + s;
+    } else {
+      return str;
+    }
+  }
+});
+
 app.dynamicHelpers({ 
   issue_namespace: function(req, res) { 
     return config.application_vars.namespace; 
-  } 
+  }
 });
 
 
