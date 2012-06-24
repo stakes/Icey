@@ -32,7 +32,7 @@ exports.showProjectsForAccount = function(req, res) {
     // now get organizations and pass render response as a callback
     icey.getOrganizations(req, res, function(organizations) {
       var responseObj = { 
-          title: 'Icey'
+          title: 'Icey | '+acct
         , repos: icey.onlyProjectsWithIssues(true, projects)
         , otherRepos: icey.onlyProjectsWithIssues(false, projects)
         , orgs: organizations
@@ -72,7 +72,7 @@ exports.getSingleProject = function(req, res) {
           return (_.include(backlog, issue) || _.include(current, issue))
         })
         var responseObj = { 
-            title: 'IceHub: '+acct+'/'+req.params.project
+            title: 'Icey | '+req.params.project
           , project_id: github_id
           , repos: icey.onlyProjectsWithIssues(true, projects)
           , orgs: organizations
