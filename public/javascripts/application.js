@@ -30,7 +30,6 @@ $(document).ready(function() {
     $(m).modal('show');
   });
   
-  console.log($('.list-filter-drop'))
   $('.list-filter-drop').dropdown();
   
   $(window).resize(resizeColumns);
@@ -51,7 +50,6 @@ var updateIssueOrder = function(els) {
     github_id: window.ICEY.github_id,
     issues: JSON.stringify(issueobj)
   };
-  console.log(d)
   $.ajax({
         type: 'POST'
       , url: '/issues/reorder'
@@ -97,6 +95,5 @@ var applyVisualStatus = function(tgt, id) {
 
 var resizeColumns = function() {
   var hgt = $(window).height();
-  console.log(hgt);
   $(".statecolumn").height(hgt - 200);
 };
