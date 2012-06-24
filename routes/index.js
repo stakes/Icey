@@ -114,7 +114,7 @@ exports.newIssue = function(req, res) {
   acct = req.session.context
   icey.createNewIssue(req, res, acct, function(error) {
     if (error == 'undefined' || error == null) {
-      var url = '/context/'+req.body.context+'/project/'+req.body.repo;
+      var url = '/context/'+req.body.context+'/project/'+req.session.owner+'/'+req.body.repo;
       res.redirect(url)
     } else {
       console.log('error from github: '+error)
