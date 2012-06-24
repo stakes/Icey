@@ -35,6 +35,8 @@ $(document).ready(function() {
   $(window).resize(resizeColumns);
   resizeColumns();
   
+  $('span.timeago').timeago();
+  
 });
 
 var updateIssueOrder = function(els) {

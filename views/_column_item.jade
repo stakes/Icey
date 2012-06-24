@@ -8,5 +8,5 @@ mixin column_item(item, index, status)
         = "#"+item.number
         = " by "
         a(href="http://github.com/#{item.user.login}", target="_blank", title="#{item.user.login}")= item.user.login
-        = " on "+item.updated_at.substr(0, 10)
+        span.timeago(title="#{item.updated_at}")= item.updated_at.substr(0, 10)
     .clearfix
