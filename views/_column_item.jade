@@ -2,5 +2,11 @@ mixin column_item(item, index, status)
   .issue-item(class="#{status}", data-issue="#{item.number}", data-githubid="#{item.id}", data-position="#{index}")
     h2= item.title
     p= item.body
-    a(href="#{item.html_url}", target="_blank") View on GitHub
-    span.time= item.updated_at.substr(0, 10)
+    div.meta
+      a.ir.github-link(href="#{item.html_url}", target="_blank", title="View on GitHub") View on GitHub
+      span
+        = "#"+item.number
+        = " by "
+        a(href="http://github.com/#{item.user.login}", target="_blank", title="#{item.user.login}")= item.user.login
+        = " on "+item.updated_at.substr(0, 10)
+    .clearfix

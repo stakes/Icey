@@ -97,7 +97,7 @@ h3 {
         .border-radius(4px, 0, 0, 4px);
         .gradient(#c1c4c6, #9ca0a4, #c1c4c6);
         height: 16px;
-        padding: 4px;
+        padding: 4px 8px;
         border-bottom: 1px solid #c5cacd;
         a.list-filter-drop {
             color: #fefefe;
@@ -166,9 +166,31 @@ h3.gravatar {
         font-weight: bold;
         color: #363a3e;
     }
+    a {
+        color: #2b4157;
+    }
 }
-span.time {
+
+a.github-link {
+    display: inline-block;
+    background-image: url('/images/github-icon.png');
+    height: 20px;
+    padding-top: 3px;
+    margin-right: 4px;
+    width: 22px;
+    &:hover {
+        background-position: 0 -23px;
+    }
+    
+}
+
+div.meta {
+    color: #818487;
     font-size: 11px;
+    float: left;
+    span {
+        margin-top: 4px;
+    }
 }
 
 .issue-item p {
