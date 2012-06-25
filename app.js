@@ -79,7 +79,15 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({secret: 'icey', store: new redis_store }));
+  app.use(express.session({
+    secret: 'icey', 
+    store: new redis_store({
+      host: app.set('redisHost'),
+      port: app.set('redisPort'),
+      db: app.set('redisDb'),
+      pass: app.set('redisPass')
+    }) 
+  }));
   // app.use(app.router);
   app.use(mongooseauth.middleware());
   app.use(express.static(pub));
