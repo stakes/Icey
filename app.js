@@ -10,7 +10,8 @@ var express = require('express')
   , mongoose = require('mongoose')
   , mongooseauth = require('mongoose-auth')
   , _ = require('underscore')
-  , redis_store = require('connect-redis')(express);
+  , redis_store = require('connect-redis')(express)
+  , url = require('url');
 var app = module.exports = express.createServer();
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.SchemaTypes.ObjectId;
