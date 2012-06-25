@@ -58,17 +58,6 @@ mongooseauth.helpExpress(app);
 // Configuration
 
 var pub = __dirname + '/public';
-app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.cookieParser());
-  app.use(express.session({secret: 'stakes', store: new redis_store }));
-  // app.use(app.router);
-  app.use(mongooseauth.middleware());
-  app.use(express.static(pub));
-});
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -83,6 +72,20 @@ app.configure('production', function(){
   app.set('redisDb', redisAuth[0]);
   app.set('redisPass', redisAuth[1]);
 });
+
+app.configure(function(){
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({secret: 'icey', store: new redis_store }));
+  // app.use(app.router);
+  app.use(mongooseauth.middleware());
+  app.use(express.static(pub));
+});
+
+
 
 app.helpers({
   truncate: function(str, len, suffix) {
