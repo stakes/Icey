@@ -2,3 +2,4 @@ npm-debug.log
 node_modules/**/*
 public/stylesheets/.DS_Store
 dump.rdb
+config/config.yaml
