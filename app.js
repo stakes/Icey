@@ -75,6 +75,12 @@ app.configure('development', function(){
 
 app.configure('production', function(){
   app.use(express.errorHandler());
+  var redisUrl = url.parse(process.env.REDISTOGO_URL),
+      redisAuth = redisUrl.auth.split(':');  
+  app.set('redisHost', redisUrl.hostname);
+  app.set('redisPort', redisUrl.port);
+  app.set('redisDb', redisAuth[0]);
+  app.set('redisPass', redisAuth[1]);
 });
 
 app.helpers({
