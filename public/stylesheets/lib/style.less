@@ -17,11 +17,41 @@
 body {
     font-family: 'OpenSans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-image: url('/images/bg-tile.png');
+    background-color: #e9edef;
 }
 
 h3 {
     .headertext();
     font-weight: normal;
+}
+
+// landing page
+
+#login {
+    background-image: url('/images/log-in.png');
+    width: 306px;
+    height: 76px;
+    background-repeat: no-repeat;
+    &:hover {
+        background-position: 0 -76px;
+    }
+    margin: 40px auto;
+}
+
+#landing-logo {
+    width: 227px;
+    height: 169px;
+    background-image: url('/images/landing-logo.png');
+    background-repeat: no-repeat;
+    margin: 120px auto 60px;
+}
+
+.landing-top {
+    height: 712px;
+    background-image: url('/images/landing-bg-tile.png');
+    background-repeat: repeat-x;
+    .box-shadow(0 1px 3px rgba(0,0,0,.4));
+    text-align: center;
 }
 
 // global top bar
@@ -105,7 +135,7 @@ h3 {
     .box-shadow(inset 0 1px 0 rgba(255,255,255,.3));
     &:hover {
         background-color: rgba(8,51,93,.5);
-        .box-shadow(0 1px 0 rgba(255,255,255,.1));
+        .box-shadow(0 1px 0 rgba(255,255,255,.15));
     }
 }
 
