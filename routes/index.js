@@ -1,5 +1,4 @@
 var https = require('https')
-, github = require('../lib/github')
 , icey = require('../lib/icey')
 , _ = require('underscore')
 , env = process.env.NODE_ENV || 'development'
@@ -132,21 +131,3 @@ exports.updateIssue = function(req, res) {
   });
 };
 
-exports.authenticate = function(req, res) {
-    var gh = github
-    gh.authenticate(req.body.username, req.body.apikey);
-    gh.getUserApi().show(req.body.username, function(err, info) {
-        gh.getRepoApi().getUserRepos(req.body.username, function(err, resp) {
-          var responseObj = {infoobj: info, repos: resp};
-          res.send(responseObj);
-        });
-    });
-};
-
-exports.closeIssue = function(req, res) {
-  var gh = github;
-  gh.authenticate(req.params.user, req.params.key);
-  gh.getIssueApi().closeIssue(req.params.user, req.params.repo, req.params.issue, function(err, info) {
-    res.send(info)
-  });
-};

@@ -10,7 +10,6 @@ var express = require('express')
   , mongoose = require('mongoose')
   , mongooseauth = require('mongoose-auth')
   , _ = require('underscore')
-  , github = require('./lib/github')
   , redis_store = require('connect-redis')(express);
 var app = module.exports = express.createServer();
 var Schema = mongoose.Schema;
