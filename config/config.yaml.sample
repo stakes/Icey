@@ -1,0 +1,20 @@
+development:
+  db:
+    uri: ""
+  github:
+    appId: ""
+    appSecret: ""
+    hostUri: ""
+  application_vars:
+    columns: ["icebox", "backlog", "current", "completed"]
+    namespace: '_ic'
+production:
+  db:
+    uri: ""
+  github:
+    appId: ""
+    appSecret: ""
+    hostUri: ""
+  application_vars:
+    columns: ["icebox", "backlog", "current", "completed"]
+    namespace: '_ic'
