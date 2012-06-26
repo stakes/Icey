@@ -14,6 +14,6 @@
     , "yaml-config": "0.1.0"
     , "connect-redis": "1.3.0"
     , "connect-cookie-session": "0.0.2"
-    , "everyauth": "git://github.com/bnoguchi/everyauth.git#master"
+    , "everyauth": "git://github.com/stakes/everyauth.git#github_v3"
   }
 }
