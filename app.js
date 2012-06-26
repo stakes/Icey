@@ -122,6 +122,14 @@ app.dynamicHelpers({
 // Routes
 
 
+app.get('*', function (req,res,next) {
+  if (req.headers['x-forwarded-proto']!='https' && env != 'development') {
+    res.redirect('https://icey.herokuapp.com'+req.url);
+  } else {
+    next();
+  };
+});
+
 app.get('/', routes.index);
 app.get('/login', routes.login);
 app.get('/projects', routes.showProjectsForAccount);
