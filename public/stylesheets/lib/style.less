@@ -15,7 +15,9 @@
 //}
 
 body {
-    font-family: 'OpenSans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    &, p {
+        font-family: 'OpenSans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
     background-image: url('/images/bg-tile.png');
     background-color: #e9edef;
 }
@@ -35,7 +37,7 @@ h3 {
     &:hover {
         background-position: 0 -76px;
     }
-    margin: 40px auto;
+    margin: 20px auto;
 }
 
 #landing-logo {
@@ -43,15 +45,117 @@ h3 {
     height: 169px;
     background-image: url('/images/landing-logo.png');
     background-repeat: no-repeat;
-    margin: 120px auto 60px;
+    margin: 66px auto 50px;
 }
 
 .landing-top {
-    height: 712px;
+    height: 512px;
     background-image: url('/images/landing-bg-tile.png');
     background-repeat: repeat-x;
-    .box-shadow(0 1px 3px rgba(0,0,0,.4));
+    .box-shadow(0 2px 5px rgba(0,0,0,.6));
     text-align: center;
+    p {
+        color: #e9edef;
+        font-weight: 100;
+        & strong {
+            font-weight: 100;
+        }
+        font-size: 24px;
+        line-height: 32px;
+    }
+}
+
+.landing-middle {
+    color: #4d5258;
+    padding: 80px 0;
+    img {
+        margin-top: 30px;
+    }
+    ul li {
+        font-weight: 100;
+        list-style-type: none;
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-shadow: 0 1px 0 #fff;
+        margin-bottom: 8px;
+    }
+    .below-list {
+        margin-top: 20px;
+        text-align: center;
+        p {
+            font-size: 11px;
+            color: #949699;
+            a {
+                color: #697f9a;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+#fork-it {
+    background-image: url('/images/fork-it.png');
+    width: 182px;
+    height: 43px;
+    &:hover {
+        background-position: 0 -44px;
+    }
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin: 0 auto 6px;
+}
+
+.landing-bottom {
+    padding: 80px 0;
+    color: #4d5258;
+    .span3 {
+        p {
+            margin-top: 1px;
+            font-size: 12px;
+            line-height: 18px;
+            text-shadow: 0 1px 0 rgba(255,255,255,.6);
+            margin-bottom: 0;
+            text-transform: uppercase;
+            color: #949699;
+            font-weight: bold;
+        }
+    }
+    hr {
+        height: 1px;
+        background-color: #a7abaf;
+        border: none;
+        border-bottom: 1px solid rgba(255,255,255,.6);
+        margin: 2px 0 12px;
+    }
+    height: 312px;
+    background-image: url('/images/bg-tile-footer.png');
+    .box-shadow(inset 0 2px 5px rgba(0,0,0,.4));
+    ul {
+        margin-left: 0;
+    }
+    ul li {
+        font-weight: 100;
+        list-style-type: none;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0px;
+        text-shadow: 0 1px 0 rgba(255,255,255,.6);
+        margin-bottom: 8px;
+    }
+    a {
+        color: #44648a;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    p {
+        text-shadow: 0 1px 0 rgba(255,255,255,.6);
+        line-height: 21px;
+        font-size: 13px;
+    }
 }
 
 // global top bar

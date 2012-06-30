@@ -1,5 +1,50 @@
 .landing-top.container-fluid
 
   h1.ir#landing-logo Icey
+  
+  p Icey is a <strong>kanban board</strong><br/>for your <strong>GitHub issues</strong>.  
 
   a.ir#login(href='/auth/github') Log in with Github
+  
+
+.landing-middle
+  .container
+    .row
+
+      .span5
+        img(src="/images/screenshot.png")
+      
+      .span7
+        ul
+          li <strong>Instant</strong> Just log in with your GitHub account and immediately get a new perspective on your issues.
+          li <strong>Useful</strong> Add, close, reopen, prioritize and track progress on tasks in an immediately familiar, easy-to-use interface.
+          li <strong>Simple</strong> Issues start out in the Icebox, then you manage workflow from the Backlog through completion.
+          li <strong>Fork it!</strong> Want to add a feature? Want to just run it yourself?
+        .below-list
+          a#fork-it.ir(href="http://github.com/stakes/Icey") Fork Icey on Github
+          p Icey is a <a href="http://nodejs.org/">Node.js</a> project available as a <a href="http://github.com/stakes/Icey">public repo</a> on Github
+      
+      
+        
+.landing-bottom.container-fluid
+  .container
+    .row
+      
+      .span8
+        p Icey was originally built by <a href="http://twitter.com/stakelon">@stakelon</a> in a single day at Los Angeles' Node.js Boot Camp in February, 2012. If the venerable <a href="http://www.pivotaltracker.com/">Pivotal Tracker</a> and always-handy GitHub Issues had an illegitimate love child, it'd probably look something like Icey.
+        p It's designed to make it easy to use kanban-style task management to track progress on GitHub issues and adds the ability to prioritize issues using an easy drag-and-drop UI.
+        p When you select a project in Icey, it'll add a few labels to your GitHub project to indicate whether an issue is in the Icebox, the Backlog, in progress or closed, and sync your issue ids whenever you log in, storing them in Mongo along with their priority within the given kanban column/status. It's very much a work in progress, so even though it's designed to be nondestructive to your GitHub project's issues, please use it at your own risk.
+        p And even better, if you find an issue or have an idea how to make Icey better, <a href="https://github.com/stakes/Icey/issues">report it</a>!
+        p Enjoy :)
+      .span3.offset1
+        p Built with
+        hr
+        ul
+          li <a href="http://nodejs.org/">Node.js</a>
+          li <a href="http://expressjs.com/">Express.js</a>
+          li <a href="http://jade-lang.com/">Jade</a> &amp; <a href="http://lesscss.org/">Less.css</a>
+          li <a href="http://jquery.com/">jQuery</a> &amp; <a href="http://underscorejs.org/">Underscore</a>
+          li <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>
+          li <a href="http://www.mongodb.org/">MongoDB</a> &amp; <a href="https://github.com/LearnBoost/mongoose">Mongoose</a>
+          li <a href="https://github.com/bnoguchi/everyauth/">everyauth</a> &amp; <a href="https://github.com/bnoguchi/mongoose-auth/">mongoose-auth</a>
+          li <a href="http://redis.io/">Redis</a> &amp; <a href="https://github.com/visionmedia/connect-redis/">connect-redis</a>
