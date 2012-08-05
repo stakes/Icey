@@ -1,6 +1,6 @@
 https = require 'https'
 querystring = require 'querystring'
-Project = require '../models/projects'
+Project = require '../models/project'
 _ = require 'underscore'
 env = process.env.NODE_ENV || 'development'
 columns = ['icebox', 'backlog', 'current', 'completed']
