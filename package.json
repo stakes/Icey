@@ -2,6 +2,13 @@
   "name": "Icey",
   "version": "0.2.0",
   "private": true,
+  "author": "Jay Stakelon",
+  "contributors": [
+    {
+      "name": "Julien Rostand",
+      "email": "julien@fullscreen.net"
+    }
+  ],
   "dependencies": {
     "express": "2.5.8"
     "jade": ">= 0.0.1"
@@ -17,6 +24,10 @@
   "engines": {
     "node": "0.6.x",
     "npm": "1.1.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stakes/Icey.git"
   },
   "scripts": {
     "start": "coffee app"
