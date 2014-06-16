@@ -1,0 +1,20 @@
+development:
+  db:
+    uri: "mongodb://localhost/icey_development"
+  github:
+    appId: "2a538eafe916bb3d1707"
+    appSecret: "ba638f0e86386562264fe551e59073c684dcedbb"
+    hostUri: "http://local.host:3000"
+  application_vars:
+    columns: ["icebox", "backlog", "current", "completed"]
+    namespace: '_ic'
+production:
+  db:
+    uri: "mongodb://heroku_app2947239:r7l2g2n6ajbbl83k8603f5md47@ds031347.mongolab.com:31347/heroku_app2947239"
+  github:
+    appId: "993b83404132ff6638d8"
+    appSecret: "c9ed7ef1057f5cf43d3a2607f9865166e4409e26"
+    hostUri: "http://icey.herokuapp.com"
+  application_vars:
+    columns: ["icebox", "backlog", "current", "completed"]
+    namespace: '_ic'

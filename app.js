@@ -18,8 +18,8 @@ var ObjectId = mongoose.SchemaTypes.ObjectId;
 
 
 
-// Schemas/models
-var UserSchema = new Schema({});
+// Schemas/modelsyc
+var UserSchema = new Schema({}); 
 var User;
 
 UserSchema.plugin(mongooseauth, {
@@ -38,6 +38,7 @@ UserSchema.plugin(mongooseauth, {
       , scope: 'user,repo'
       , redirectPath: '/'
       , moduleTimeout: 10000
+      , customHeaders: {'User-Agent': 'icey.herokuapp.com'}
     }
   }
 })
